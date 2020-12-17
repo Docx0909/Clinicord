@@ -1,0 +1,71 @@
+<div class="table-responsive ">
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)"><span class="material-icons">
+                person_add
+                </span></button>
+    <hr>
+
+    <table class="table table-bordered ">
+        <th scope="col">Checkup Id</th>
+        <th scope="col">Cliend Id</th>
+        <th scope="col">Doctor Id</th>
+        <th scope="col">Treatment</th>
+        <th scope="col">CreatedOn</th>
+        <th scope="col">Action</th>
+
+
+        <tbody>
+            <tr *ngFor="let appointment of appointments; let i = index">
+                <td>{{ appointment.checkup_id }}</td>
+                <td>{{ appointment.Client_id }}</td>
+                <td>{{ appointment.Doctor_id}}</td>
+                <td>{{ appointment.treatment }}</td>
+                <td>{{ appointment.createdOn }}</td>
+                <td>
+                    <a mat-raised-button color="primary" (click)="editModal(contentEdit, client)"><span class="material-icons">
+                        edit
+                        </span></a>
+                    <a mat-raised-button color="warn" (click)="delete_clients(doctor.Doctor_id)"><span class="material-icons">
+                        delete
+                        </span></a>
+                </td>
+        </tbody>
+    </table>
+</div>
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Checkup Profile</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div class="modal-body">
+        <form (submit)="create_doctors($event)" ngNativeValidate autocomplete="off">
+            <div class="form-group">
+                <label for="fullname">Full Name </label>
+                <input type="text" class="form-control " id="fullname" name="fullname" placeholder="Fullname" [(ngModel)]="fullname" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="Specialty">Specialty</label>
+                <input type="text" class="form-control " id="Specialty" name="Specialty" placeholder="Specialty" [(ngModel)]="specialty" autocomplete="off" required>
+            </div>
+            <div class="form-group ">
+                <label for="gender">Gender</label>
+                <select id="gender" class="form-control " name="gender" [(ngModel)]="gender">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                            </select>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control " id="age" name="age" placeholder="Age" [(ngModel)]="age" autocomplete="off" required>
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">PhoneNumber</label>
+                <input type="number" class="form-control " id="PhoneNumber" name="PhoneNumber" placeholder="PhoneNumber" [(ngModel)]="phoneNumber" autocomplete="off" required>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

@@ -1,0 +1,26 @@
+.page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px 200px 0 250px;
+}
+
+.terms1 {
+    text-align: center;
+    order: 1;
+}
+
+.terms1 img {
+    width: 100px;
+}
+
+.terms2 {
+    order: 2;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #133b5c;
+    padding: 2px;
+}
+
+.terms2 h3 {
+    text-align: center;
+}

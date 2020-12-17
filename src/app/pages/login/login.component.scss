@@ -1,0 +1,59 @@
+.page-container {
+    top: 25%;
+    left: 9%;
+    width: 300px;
+    height: auto;
+    padding: 20px;
+    position: fixed;
+    border-radius: 20px;
+    background-color: white;
+    border: 1px solid #133b5c;
+    box-shadow: 0px 5px 5px 5px #888888;
+    background-color: rgba(255, 255, 255, 5);
+}
+
+.logo {
+    width: 70%;
+    height: 100%;
+    right: 0;
+    position: fixed;
+    z-index: -1;
+}
+
+.login-header {
+    margin: -40px -20px 20px;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+    background-color: #215580;
+    border-radius: 20px 20px 0px 0px;
+    padding: 10px;
+}
+
+p {
+    text-align: center;
+    color: #133b5c;
+    font-size: 100%;
+    font-weight: bolder;
+}
+
+input {
+    border-radius: 25px;
+    padding: 20px;
+}
+
+input[type=password] {
+    margin-bottom: 10%;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    font-weight: lighter;
+    border-radius: 25px;
+    letter-spacing: 2px;
+}

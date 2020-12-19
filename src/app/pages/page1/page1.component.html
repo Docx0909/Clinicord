@@ -42,7 +42,7 @@
               </button>
         </div>
         <div class="modal-body">
-            <form (submit)="create_clients($event)" ngNativeValidate autocomplete="disabled">
+            <form (ngSubmit)="create_clients($event)" ngNativeValidate autocomplete="disabled">
                 <div class="form-group ">
                     <label for="fullname">Full Name </label>
                     <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Fullname" [(ngModel)]="fullname" autocomplete="disabled" required>

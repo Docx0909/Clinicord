@@ -98,8 +98,11 @@ export class Page1Component implements OnInit {
     });
   }
 
- async create_clients(){
-   if( this.fullname == "" ||this.gender == ""|| this.age ==""){
+ async create_clients(event){
+    
+
+  if( this.fullname == "" ||this.gender == ""|| this.age ==""){
+ 
     Swal.fire({
       position: 'top-end',
       icon: 'warning',
@@ -108,6 +111,7 @@ export class Page1Component implements OnInit {
       timer: 1500
     });
    }
+   event.preventDefault();
       try{
         this.ds.processData('addclients', {
         Client_name: this.fullname, 

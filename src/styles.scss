@@ -1,16 +1,12 @@
 // // @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,100&display=swap');
 html,
 body {
-    width: auto;
-    height: 100%;
-    font-family: 'Roboto', sans-serif;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    // background: linear-gradient(to bottom, #ffffff 20%, #fcdab7 100%);
-    background-repeat: no-repeat;
     margin: 0;
-    padding: 0;
+    height: 100%;
 }
 
+td{
+    font-size: 85%;
+}
 // /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

@@ -1,5 +1,5 @@
 import { Component, OnInit, PipeTransform  } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -21,6 +21,8 @@ const swalWithBootstrapButtons = Swal.mixin({
   styleUrls: ['./page1.component.scss']
 })
 export class Page1Component implements OnInit {
+  page :number = 1;
+  pageSize: number = 6;
   clients: [];
   id: any = '';
   fullname: string ;
@@ -38,6 +40,7 @@ export class Page1Component implements OnInit {
 
 
   constructor(private ds: DataService, private modalService: NgbModal, private fb: FormBuilder) { }
+  
   
   editModal(contentEdit, client){
     console.log(client);
@@ -95,6 +98,7 @@ export class Page1Component implements OnInit {
   get_clients(){
     this.ds.processData('getclients', null).subscribe((res: any)=>{
       this.clients = res.data;
+      console.log(this.clients);
     });
   }
 

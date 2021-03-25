@@ -10,10 +10,11 @@
         </p>
     </div>
 </div>
-<div class="page-container">
+<div class="page-container d-flex justify-content-around" >
     <div class="page-content-container">
         <router-outlet></router-outlet>
     </div>
+    <!--  -->
     <div class="list-items" *ngIf="_user.isLoggedIn()">
         <ul class="nav flex-column" id="sidebar">
             <li class="nav-item">
@@ -37,7 +38,7 @@
                     {{this.name}}
                     </button>
                     <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem><i class="material-icons ">exit_to_app</i><a (click)="logoutButton()">Logout</a></button>
+                        <button ngbDropdownItem><i class="material-icons ">logout</i><a (click)="logoutButton()">Logout</a></button>
                     </div>
                 </div>
             </li>

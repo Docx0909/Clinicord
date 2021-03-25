@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
-import { Page1Component } from './pages/page1/page1.component';
-import { Page2Component } from './pages/page2/page2.component';
-import { Page3Component } from './pages/page3/page3.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { Page1Component } from './pages/pages/page1/page1.component';
+import { Page2Component } from './pages/pages/page2/page2.component';
+import { Page3Component } from './pages/pages/page3/page3.component';
+import { DashboardComponent } from './pages/pages/dashboard/dashboard.component';
 import { RegistrationComponent } from './pages/registration/registration.component';
-import { TermsComponent } from './pages/terms/terms.component';
-import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { TermsComponent } from './pages/pages/terms/terms.component';
+import { PrivacyComponent } from './pages/pages/privacy/privacy.component';
 import { AppComponent } from './app.component';
 
 

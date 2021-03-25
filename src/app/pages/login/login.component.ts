@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(e) {
     e.preventDefault();
-    let param1 = e.target[0].value;
+        let param1 = e.target[0].value;
         let param2 = e.target[1].value;
  
       if (param1 != "" || param2 != ""){

@@ -1,0 +1,17 @@
+.page-container {
+    text-align: center;
+}
+
+img {
+    position: relative;
+    margin-right: 150px;
+}
+
+p {
+    position: relative;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #133b5c;
+    font-weight: bold;
+    margin: 80px 300px 0 120px;
+}

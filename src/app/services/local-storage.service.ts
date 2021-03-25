@@ -7,16 +7,16 @@ export class LocalStorageService {
 
   constructor() { }
   public setItem(key: string, value: string) {
-    localStorage.setItem(key, value);
+    sessionStorage.setItem(key, value);
   }
     
   public getItem(key: string){ 
-    return localStorage.getItem(key)
+    return sessionStorage.getItem(key)
   }
   public removeItem(key:string) {
-    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
   }
   public clear(){
-    localStorage.clear(); 
+    sessionStorage.clear(); 
   }
 }

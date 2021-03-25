@@ -5,12 +5,11 @@
 
 .page-content-container {
     order: 1;
-    margin-top: 20px;
-    left: 10px;
+    margin: 10px auto;
 }
 
 .list-items {
-    order: 2;
+    order: 1;
 }
 
 .logo {
@@ -24,7 +23,7 @@
     flex-direction: row;
     justify-content: space-between;
     color: white;
-    padding: 1%;
+    padding: 10px;
     background-color: #2b2e4a;
 }
 
@@ -34,13 +33,9 @@
 
 .main2 {
     order: 2;
-    position: relative;
+    position: absolute;
     right: 40px;
     top: 20px;
-}
-
-.privacy {
-    position: relative;
 }
 
 h1 {
@@ -64,11 +59,10 @@ a:focus {
 }
 
 #sidebar {
-    position: absolute;
-    right: 0;
+    right:0;  
     margin-top: 0;
-    width: 190px;
-    height: 87vh;
+    width: 200px;
+    min-height: calc(100vh - 0px);
     background-color: #133b5c;
     color: #fcfcfc;
 }
@@ -79,9 +73,6 @@ a:focus {
     padding: 15px;
 }
 
-.items {
-    margin-top: 80%;
-}
 
 .list-item:focus {
     outline: 0 !important;
@@ -98,6 +89,6 @@ a:focus {
 }
 
 .nav-item {
-    margin: 10px 0 10px;
-    padding: 0px;
+    margin: 15px 0 10px;
+ 
 }

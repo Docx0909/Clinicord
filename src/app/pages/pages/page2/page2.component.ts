@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -20,8 +20,9 @@ const swalWithBootstrapButtons = Swal.mixin({
   styleUrls: ['./page2.component.scss']
 })
 export class Page2Component implements OnInit {
-  doctors: any;
-
+  page :number = 1;
+  pageSize: number = 6;
+  doctors: [];
   id:any;
   fullname: string = '';
   specialty: string = '';
@@ -30,11 +31,8 @@ export class Page2Component implements OnInit {
   phoneNumber: string = '';
   closeResult = '';
   editForm : FormGroup;
-
-  
   NotDelete: string = 'F';
   IsDelete : string = 'T';
-
   constructor(private ds: DataService, private modalService: NgbModal, private fb: FormBuilder) { }
  
   editModal(contentEdit, doctor){
@@ -142,7 +140,7 @@ export class Page2Component implements OnInit {
            }
           
      }
-      delete_clients(Doctor_id){
+      delete_doctors(Doctor_id){
         swalWithBootstrapButtons.fire({
           title: 'Are you sure?',
           text: "You won't be able to revert this!",
@@ -150,21 +148,21 @@ export class Page2Component implements OnInit {
           showCancelButton: true,
           confirmButtonText: 'Yes, delete it!',
           cancelButtonText: 'No, cancel!',
-          reverseButtons: true
+          reverseButtons: false
         }).then((result) => {
           if (result.isConfirmed) {
-  
-            console.log(Doctor_id);
-         this.ds.processData('deletedoctors',{Doctor_id: Doctor_id,  IsDeleted: this.IsDelete}).subscribe((res: any)=>{
-    
-          this.get_doctors();
-         console.log(res)
-            });
-            swalWithBootstrapButtons.fire(
-              'Deleted!',
-              'Your record has been deleted.',
-              'success'
-            )
+
+            this.ds.processData('deletedoctors',{
+              Doctor_id: Doctor_id,  
+              IsDeleted: this.IsDelete
+              }).subscribe((res: any)=>{
+                this.get_doctors();
+              });
+              swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your record has been deleted.',
+                'success'
+              )
           } else if (
             /* Read more about handling dismissals below */
             result.dismiss === Swal.DismissReason.cancel

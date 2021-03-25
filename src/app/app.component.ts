@@ -13,26 +13,17 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class AppComponent {
   title = 'Clinicord';
-
-  
   clients: any;
-
+  name: string;
 
   constructor(
     public _user: UserService, 
     private ds: DataService,
     private _router: Router,
-    private localStorageService: LocalStorageService) {}
-
-
-    public name: string;
+    public localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.get_accounts();
     this.name = this.localStorageService.getItem("myValue")
-
-
-
   }
 
   
@@ -47,26 +38,20 @@ export class AppComponent {
   
   logoutButton() {
       Swal.fire({
-     title: 'Logout?',
+      title: 'Logout?',
+      text: 'Are you sure you want to leave?',
       icon: 'warning',
       showCancelButton: true,
+      confirmButtonText: 'Proceed',
       confirmButtonColor: '#3085d6'}).then((result) => {
         if (result.isConfirmed) {
-        
-             this._user.setLoggedOut();
+            this.name = "";
+            this.localStorageService.removeItem("myValue");
+            this.localStorageService.clear();
+            this._user.setLoggedOut();
             this._router.navigate(['login']);
         }
       })
-  }
-
-  
-  
-  get_accounts(){
-    this.ds.processData('getclients', null).subscribe((res: any)=>{
-      this.clients = res.data;
-   
-    });
-    
   }
 
 }

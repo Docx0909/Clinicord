@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2020 at 12:02 PM
+-- Generation Time: Mar 29, 2021 at 06:11 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -29,19 +29,27 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `checkup_tbl` (
-  `checkup_id` int(11) NOT NULL,
-  `Client_id` int(11) NOT NULL,
-  `Doctor_id` int(11) NOT NULL,
-  `treatment` varchar(100) NOT NULL,
-  `createdOn` datetime NOT NULL DEFAULT current_timestamp()
+  `ap_id` int(11) NOT NULL,
+  `client_name` varchar(255) NOT NULL,
+  `ap_type` varchar(255) NOT NULL,
+  `ap_date` varchar(100) NOT NULL,
+  `ap_status` varchar(100) NOT NULL,
+  `ap_description` varchar(100) NOT NULL,
+  `createdOn` datetime NOT NULL DEFAULT current_timestamp(),
+  `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `IsDeleted` char(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `checkup_tbl`
 --
 
-INSERT INTO `checkup_tbl` (`checkup_id`, `Client_id`, `Doctor_id`, `treatment`, `createdOn`) VALUES
-(1, 1, 1, 'Tooth Extraction due to poor tooth condition', '2020-12-10 17:35:44');
+INSERT INTO `checkup_tbl` (`ap_id`, `client_name`, `ap_type`, `ap_date`, `ap_status`, `ap_description`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
+(1, 'Jhay Velarmino', 'Mild', '2021-12-16', 'Postponed', 'Tooth Extraction due to poor tooth condition', '2020-12-10 17:35:44', '2021-03-17 17:38:26', 'F'),
+(11, 'Ron Benedict Panes', 'Mild', '2021-03-29', 'Waiting', 'sdsadsad', '2021-03-17 22:45:04', '2021-03-25 13:03:34', 'F'),
+(12, 'Jerome Villafuerte', 'Mild', '2021-03-24', 'Waiting', 'dsads', '2021-03-17 22:45:26', '2021-03-17 22:45:26', 'F'),
+(13, 'Enzo Mora', 'Mild', '2021-03-24', 'Waiting', 'asdasd', '2021-03-17 22:47:16', '2021-03-17 22:47:16', 'F'),
+(14, 'Timothy Cortez', 'Urgent', '2021-03-27', 'Waiting', 'Covid Test', '2021-03-20 18:06:16', '2021-03-25 12:46:22', 'F');
 
 -- --------------------------------------------------------
 
@@ -58,7 +66,8 @@ CREATE TABLE `client_tbl` (
   `Client_phone` varchar(12) NOT NULL,
   `Client_findings` varchar(255) NOT NULL,
   `Client_IsForCheckup` char(5) NOT NULL,
-  `createdOn` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `createdOn` datetime NOT NULL DEFAULT current_timestamp(),
+  `UpdatedOn` datetime NOT NULL,
   `IsDeleted` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -66,30 +75,31 @@ CREATE TABLE `client_tbl` (
 -- Dumping data for table `client_tbl`
 --
 
-INSERT INTO `client_tbl` (`Client_id`, `Client_name`, `Client_gender`, `Client_age`, `Client_address`, `Client_phone`, `Client_findings`, `Client_IsForCheckup`, `createdOn`, `IsDeleted`) VALUES
-(14, 'Jhay Velarmino', 'M', '26', 'Olongapo City', '0921312321', '', 'True', '2020-12-16 14:48:05', 'F'),
-(15, 'Jessica Miraflor', 'F', '23', 'Olongapo City', '0921312321', '', 'True', '2020-12-16 14:48:00', 'F'),
-(18, 'Bernardo Aquilan', 'M', '33', '62 Dimariwa St. Muhangan Pangasinan', '09201753291', '', 'True', '2020-12-16 14:47:56', 'F'),
-(19, 'Ernesto Rockfeller', 'M', '25', 'New York', '09324161312', '', 'True', '2020-12-16 14:47:48', 'F'),
-(20, 'Marica Borna', 'F', '23', 'New York', '09324161312', '', 'True', '2020-12-16 14:47:43', 'F'),
-(21, 'Enzo Mora', 'F', '21', 'Banicain', '09201753291', '', 'False', '2020-12-16 14:06:25', 'F'),
-(22, 'Ron Benedict Panes', 'M', '23', 'West Bajac Bajac', '09324161312', '', 'True', '2020-12-16 18:16:53', 'T'),
-(24, 'Timothy Cortez', 'M', '21', 'West Bajac Bajac', '09324161312', '', 'False', '2020-12-16 18:16:55', 'T'),
-(25, 'Jerome Villafuerte', 'M', '21', 'West Bajac Bajac', '09324161312', '', 'False', '2020-12-16 17:57:32', 'T'),
-(26, 'Jonas Silvia', 'M', '27', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 14:48:33', 'T'),
-(32, 'Ron Benedict Panes', 'M', '23', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 14:48:43', 'T'),
-(34, 'Krupt Chrysler', 'M', '23', 'Germany', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 14:28:25', 'T'),
-(39, 'Krupt Chrysler', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 18:16:51', 'T'),
-(40, 'sadasd', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 18:16:46', 'T'),
-(41, 'sadasd', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 18:38:13', 'T'),
-(42, 'sadasd', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 18:38:12', 'T'),
-(43, 'asdas', 'M', '21', 'Germany', '09324161312', 'Sore Throat', 'True', '2020-12-16 18:38:09', 'T'),
-(44, 'dasd', 'M', '21', 'West Bajac Bajac', '09201753291', 'Sore Throat', 'True', '2020-12-16 18:38:06', 'T'),
-(45, 'dasdsa', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'True', '2020-12-16 18:38:03', 'T'),
-(46, 'Krupt Chrysler', 'M', '64', 'Germany', '09324161312', 'Sore Throat', 'True', '2020-12-19 13:20:47', 'T'),
-(47, 'Jesse Ares', 'F', '64', 'West Bajac Bajac', '09343243432', 'Pelvic muscle pain', 'False', '2020-12-17 11:40:36', 'T'),
-(48, 'Jesse Ares', 'F', '64', 'West Bajac Bajac', '09343243432', 'Pelvic muscle pain', 'True', '2020-12-17 11:38:38', 'T'),
-(49, 'Krupt Chrysler', 'M', '54', 'West Bajac Bajac', '09324161312', 'Heart Weakness', 'True', '2020-12-19 00:08:34', 'T');
+INSERT INTO `client_tbl` (`Client_id`, `Client_name`, `Client_gender`, `Client_age`, `Client_address`, `Client_phone`, `Client_findings`, `Client_IsForCheckup`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
+(14, 'Jhay Velarmino', 'M', '26', 'Olongapo City', '0921312321', 'Knee Injury', 'T', '2021-03-25 00:00:00', '2021-03-25 13:27:43', 'F'),
+(15, 'Jessica Miraflor', 'F', '23', 'Olongapo City', '0921312321', 'Chest Pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:29', 'F'),
+(18, 'Bernardo Aquilan', 'M', '33', '62 Dimariwa St. Muhangan Pangasinan', '09201753291', 'Diarrhea', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:30', 'F'),
+(19, 'Ernesto Rockfeller', 'M', '25', 'New York', '09324161312', 'Sore Throat', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:33', 'F'),
+(20, 'Marica Borna', 'F', '23', 'New York', '09324161312', 'Fever', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:01', 'F'),
+(21, 'Enzo Mora', 'F', '21', 'Banicain', '09201753291', '', 'F', '2021-03-25 00:00:00', '2021-03-25 13:27:50', 'F'),
+(22, 'Ron Benedict Panes', 'M', '23', 'West Bajac Bajac', '09324161312', 'Hard Breathing', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:35', 'T'),
+(24, 'Timothy Cortez', 'M', '21', 'West Bajac Bajac', '09324161312', 'Heart Weakness', 'F', '2021-03-25 00:00:00', '2021-03-25 13:14:21', 'F'),
+(25, 'Jerome Villafuerte', 'M', '21', 'James L. Gordon, O.C.', '093241613', 'Knee Injury', 'F', '2021-03-25 00:00:00', '2021-03-25 13:14:22', 'F'),
+(26, 'Jonas Silvia', 'M', '27', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:37', 'F'),
+(32, 'Ron Benedict Panes', 'M', '23', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:38', 'F'),
+(34, 'Krupt Chrysler', 'M', '24', 'West Bajac-Bajac, Olongapo City', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:23:45', 'F'),
+(39, 'Krupt Chrysler', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:42', 'T'),
+(40, 'sadasd', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:43', 'T'),
+(41, 'sadasd', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:44', 'T'),
+(42, 'sadasd', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:45', 'T'),
+(43, 'asdas', 'M', '21', 'Germany', '09324161312', 'Sore Throat', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:46', 'T'),
+(44, 'dasd', 'M', '21', 'West Bajac Bajac', '09201753291', 'Sore Throat', 'F', '2021-03-25 00:00:00', '2021-03-25 13:14:25', 'T'),
+(45, 'dasdsa', 'M', '21', 'West Bajac Bajac', '09324161312', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:47', 'T'),
+(46, 'Krupt Chrysler', 'M', '64', 'Germany', '09324161312', 'Sore Throat', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:49', 'T'),
+(47, 'Jesse Ares', 'F', '64', 'West Bajac Bajac', '09343243432', 'Pelvic muscle pain', 'F', '2021-03-25 00:00:00', '2021-03-25 13:14:26', 'T'),
+(48, 'Jesse Ares', 'F', '64', 'West Bajac Bajac', '09343243432', 'Pelvic muscle pain', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:50', 'T'),
+(49, 'Krupt Chrysler', 'M', '54', 'West Bajac Bajac', '09324161312', 'Heart Weakness', 'T', '2021-03-25 00:00:00', '2021-03-25 13:14:52', 'T'),
+(50, 'Howard Floresca', 'M', '19', 'West Bajac Bajac', '09201753291', 'Heart Weakness', 'T', '2021-03-25 19:28:39', '0000-00-00 00:00:00', 'F');
 
 -- --------------------------------------------------------
 
@@ -110,9 +120,9 @@ CREATE TABLE `clinicord_accounts` (
 --
 
 INSERT INTO `clinicord_accounts` (`id`, `Doctor_id`, `Doctor_email`, `Doctor_username`, `Doctor_password`) VALUES
-(31, 0, 'Mcdo@business.com.ph', 'McdonaldsNumbawan', '$2y$10$YTE0NmUyYzU0ZDM0ZjNhN.7E/WdMbee6BnRnH9YeeZ/6.8YrnCbH2'),
+(31, 0, 'Mcdo@business.com.ph', 'admin123', '$2y$10$YTE0NmUyYzU0ZDM0ZjNhN.7E/WdMbee6BnRnH9YeeZ/6.8YrnCbH2'),
 (32, 0, 'geraldtagle09@gmail.com', 'gerald09', '$2y$10$ZDgzMmJjYjY5YmIyMjU2NOvdkotlOtGggKkEpOYEKeIveQ2JnyTcq'),
-(33, 0, 'geraldtagle09@gmail.com', 'gerald09', '$2y$10$NzBmM2QxZmIxMmVlZTliM.a0AmK3UQVmwrqOv9TvtCf0EL9opnOy2');
+(41, 0, '', '', '$2y$10$NjNlMzg1ZTI5NjM1N2Y3MuhzVXCFCthGZXMEnThAHM3X4HbU7q5fq');
 
 -- --------------------------------------------------------
 
@@ -128,6 +138,7 @@ CREATE TABLE `doctor_tbl` (
   `Doctor_age` varchar(11) NOT NULL,
   `Doctor_phone` varchar(12) NOT NULL,
   `createdOn` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `UpdatedOn` datetime NOT NULL,
   `IsDeleted` char(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -135,15 +146,15 @@ CREATE TABLE `doctor_tbl` (
 -- Dumping data for table `doctor_tbl`
 --
 
-INSERT INTO `doctor_tbl` (`Doctor_id`, `Doctor_name`, `Doctor_specialty`, `Doctor_gender`, `Doctor_age`, `Doctor_phone`, `createdOn`, `IsDeleted`) VALUES
-(3, 'Tagle, Gerald B.', 'Optometrist', 'M', '26', '0921312321', '2020-12-16 12:36:42', 'F'),
-(4, 'Crisaldo Mercurio', 'Cardiologist', 'M', '44', '0921312321', '2020-12-16 12:36:46', 'F'),
-(5, 'Feliza Diosdado', 'Psychotherapist', 'F', '32', '0921312321', '2020-12-16 12:36:48', 'F'),
-(10, 'Prince Delacruz', 'Dermatologists', 'F', '35', '0921312321', '2020-12-16 12:36:49', 'F'),
-(11, 'Miraflor Macaraeg', 'Dermatologists', 'F', '35', '0921312321', '2020-12-16 12:36:54', 'F'),
-(12, 'Jose Manalo', 'Endocrinologists', 'M', '28', '0921312321', '2020-12-16 13:03:20', 'F'),
-(13, 'Jose Bundang', 'Physician', 'M', '54', '0921312321', '2020-12-19 13:21:58', 'T'),
-(14, 'Crisaldo Mercurio', 'Physician', 'M', '21', '09343243432', '2020-12-17 11:41:53', 'T');
+INSERT INTO `doctor_tbl` (`Doctor_id`, `Doctor_name`, `Doctor_specialty`, `Doctor_gender`, `Doctor_age`, `Doctor_phone`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
+(3, 'Tagle, Gerald B.', 'Optometrist', 'M', '26', '0921312321', '2020-12-16 12:36:42', '2021-03-05 14:21:27', 'F'),
+(4, 'Crisaldo Mercurio', 'Cardiologist', 'M', '44', '0921312321', '2020-12-16 12:36:46', '2021-03-05 14:21:27', 'F'),
+(5, 'Feliza Diosdado', 'Psychotherapist', 'F', '32', '0921312321', '2020-12-16 12:36:48', '2021-03-05 14:21:27', 'F'),
+(10, 'Prince Delacruz', 'Dermatologists', 'F', '36', '0921312321', '2021-03-05 00:17:22', '2021-03-05 14:21:27', 'F'),
+(11, 'Miraflor Macaraeg', 'Dermatologists', 'F', '35', '0921312321', '2021-03-05 00:11:08', '2021-03-05 14:21:27', 'F'),
+(12, 'Jose Manalo', 'Endocrinologists', 'F', '28', '0921312321', '2021-03-15 22:47:02', '2021-03-15 22:47:02', 'F'),
+(13, 'Jose Bundang', 'Physician', 'M', '54', '0921312321', '2020-12-19 13:21:58', '2021-03-05 14:21:27', 'T'),
+(14, 'Crisaldo Mercurio', 'Physician', 'M', '21', '09343243432', '2020-12-17 11:41:53', '2021-03-05 14:21:27', 'T');
 
 --
 -- Indexes for dumped tables
@@ -153,9 +164,7 @@ INSERT INTO `doctor_tbl` (`Doctor_id`, `Doctor_name`, `Doctor_specialty`, `Docto
 -- Indexes for table `checkup_tbl`
 --
 ALTER TABLE `checkup_tbl`
-  ADD PRIMARY KEY (`checkup_id`),
-  ADD KEY `Doctor_id` (`Doctor_id`),
-  ADD KEY `Client_id` (`Client_id`);
+  ADD PRIMARY KEY (`ap_id`);
 
 --
 -- Indexes for table `client_tbl`
@@ -184,19 +193,19 @@ ALTER TABLE `doctor_tbl`
 -- AUTO_INCREMENT for table `checkup_tbl`
 --
 ALTER TABLE `checkup_tbl`
-  MODIFY `checkup_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ap_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `client_tbl`
 --
 ALTER TABLE `client_tbl`
-  MODIFY `Client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `Client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `clinicord_accounts`
 --
 ALTER TABLE `clinicord_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `doctor_tbl`

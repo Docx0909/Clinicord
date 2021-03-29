@@ -60,39 +60,44 @@
 					
 				} else {
 					exit();
-					// return array("error"=>"Incorrect username or password");
+					return array("error"=>"Incorrect username or password");
 				
 				}
 					} else {
 						exit();
-				// return array("error"=>"Incorrect username or password");
+				return array("error"=>"Incorrect username or password");
 		
 					} 
 				} catch (PDOException $error) {
-					echo 'Connection failed: ' . $e->getMessage();
+					echo 'Connection failed: ' .$error->getMessage();
 				}
 			}
 
 
 
-
-		public function add_account($d) {
-			$sql = "INSERT INTO clinicord_accounts (Doctor_email, Doctor_username, Doctor_password) VALUES (?, ?, ?)";
-			$sql = $this->pdo->prepare($sql);
-			$sql->execute([
-				$d->email,
-				$d->username,
-				$this->encrypt_password($d->password)
-			]);
-			return array("success"=>"Sucessfully Registered");
+			public function add_account($d) {
+			
+				$sql = "SELECT * FROM clinicord_accounts WHERE Doctor_email='$d->email' OR Doctor_username='$d->username' LIMIT 1";
+				if($result = $this->pdo->query($sql)->fetchAll()) {
+				 return array("error"=>"Failed Registered");
+			 } else {
 	
-	
+				$sql = "INSERT INTO clinicord_accounts (Doctor_email, Doctor_username, Doctor_password) VALUES (?, ?, ?)";
+				$sql = $this->pdo->prepare($sql);
+				$sql->execute([
+					$d->email,
+					$d->username,
+					$this->encrypt_password($d->password)
+				]);
+				return array("success"=>"Sucessfully Registered");
+			 }
+		
+			}
 		}
-
-
-
-	}
-?>
+	?>
+	
+	
+	
 
 
 

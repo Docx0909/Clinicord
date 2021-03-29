@@ -24,6 +24,9 @@
 				case 'getclients':
 					echo json_encode($get->get_clients());
 				break;
+				case 'getclientsched':
+					echo json_encode($get->get_clients_appoint());
+				break;
 
 				case 'getdoctors':
 					echo json_encode($get->get_doctors());
@@ -45,6 +48,11 @@
 					echo json_encode($post->insert_doctor($d));
 				break;
 
+				case 'addappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($post->insert_appointment($d));
+				break;
+
 				case 'updateclients':
 					$d = json_decode(file_get_contents("php://input")); 
 					echo json_encode($post->update_client($d));
@@ -53,6 +61,10 @@
 				case 'updatedoctors':
 					$d = json_decode(file_get_contents("php://input")); 
 					echo json_encode($post->update_doctor($d));
+				break;
+				case 'updateappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($post->update_appointment($d));
 				break;
 
 
@@ -67,7 +79,12 @@
 					// print_r($d);
 					echo json_encode($post->delete_doctor($d));
 				break;
-				
+
+				case 'deleteappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					// print_r($d);
+					echo json_encode($post->delete_appointment($d));
+				break;
 				//AUTH METHOD
 				case 'changepassword':
 					// $d = json_decode(file_get_contents("php://input")); 

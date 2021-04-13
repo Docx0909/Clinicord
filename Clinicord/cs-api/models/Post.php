@@ -13,7 +13,7 @@
 //insert functions
 		public function insert_client($d) {
 			// print_r($d);
-			$sql = "SELECT * FROM client_tbl WHERE Client_name='$d->Client_name'LIMIT 1";
+			$sql = "SELECT * FROM client_tbl WHERE Client_name='$d->Client_name' LIMIT 1";
 			if($result = $this->pdo->query($sql)->fetchAll()) {
 			 return array("error"=>"Client Already Exists!");
 		 	} else {
@@ -74,6 +74,40 @@
 			return $this->get->get_appoint();
 		}
 	}
+
+		public function insert_user_appointment($d) {	
+				
+			$deleted = 'F';
+			$status = 'Pending';
+				
+			try{
+			$sql = "SELECT client_tbl.Client_name FROM client_tbl WHERE U_id='$d->account_id'";
+			$name = $this->pdo->query($sql)->fetchAll();
+			{
+				$name = $name[0]['Client_name'];
+
+			}
+
+			$sql = "INSERT INTO checkup_tbl (U_id, Client_name, ap_date, ap_time, ap_status, ap_description, IsDeleted) VALUES (?,?,?, ?, ?, ?, ?)";
+			$sql = $this->pdo->prepare($sql);
+			$sql->execute([
+				$d->account_id,
+				$name,
+				$d->appointform->ap_date,
+				$d->appointform->ap_time,
+				$status,
+				$d->appointform->reason,
+				$deleted
+
+			]);
+			return $this->get->get_appoint();
+			
+			} 
+				catch (PDOException $error) {
+				echo 'Connection failed: ' .$error->getMessage();
+			}
+		
+	}
 		
 	
 //update functions
@@ -108,12 +142,13 @@
 			return $this->get->get_doctors();
 			}
 		public function update_appointment($d) {
-			$sql = "UPDATE checkup_tbl SET client_name = ?, ap_type = ?, ap_date = ?, ap_status = ?, ap_description= ?,  UpdatedOn = NOW() WHERE ap_id=?";
+			$sql = "UPDATE checkup_tbl SET Client_name = ?, ap_type = ?, ap_date = ?,ap_time = ?, ap_status = ?, ap_description= ?,  UpdatedOn = NOW() WHERE ap_id=?";
 			$sql = $this->pdo->prepare($sql);
 			$sql->execute([
 				$d->fullname,
 				$d->type,
 				$d->model,
+				$d->time,
 				$d->status,
 				$d->description,
 				$d->id
@@ -122,6 +157,16 @@
 			return $this->get->get_appoint();
 			}
 			
+		public function userupdate_appointment($d) {
+			$sql = "UPDATE checkup_tbl SET   ap_status = ?, UpdatedOn = NOW() WHERE ap_id=?";
+			$sql = $this->pdo->prepare($sql);
+			$sql->execute([
+				$d->ap_status,
+				$d->ap_id
+			
+			]);
+			return $this->get->get_appoint();
+			}
 //delete functions
 		public function delete_client($d) {
 			// print_r($d);
@@ -147,6 +192,17 @@
 		}
 
 		public function delete_appointment($d) {
+			// print_r($d);
+			$sql = "UPDATE  checkup_tbl  SET IsDeleted = ? WHERE ap_id = ? ";
+			$sql = $this->pdo->prepare($sql);
+			$sql->execute([
+				$d->IsDeleted,
+				$d->ap_id
+				
+			]);
+			return array("success"=>"Record was deleted ");
+		}
+		public function userdelete_appointment($d) {
 			// print_r($d);
 			$sql = "UPDATE  checkup_tbl  SET IsDeleted = ? WHERE ap_id = ? ";
 			$sql = $this->pdo->prepare($sql);

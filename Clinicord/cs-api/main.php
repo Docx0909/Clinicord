@@ -35,7 +35,24 @@
 				case 'getappointments':
 					echo json_encode($get->get_appoint());
 				break;
+
+				case 'getprofile':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($get->get_profile($d));
+				break;
+
+				case 'getuserappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($get->get_upcoming($d));
+				break;
+
+				case 'getappointmentstatus':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($get->get_past($d));
+				break;
 				# End GET Operations
+				
+
 
 				# POST Operations
 				case 'addclients':
@@ -53,6 +70,12 @@
 					echo json_encode($post->insert_appointment($d));
 				break;
 
+				case 'userappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($post->insert_user_appointment($d));
+				break;
+
+
 				case 'updateclients':
 					$d = json_decode(file_get_contents("php://input")); 
 					echo json_encode($post->update_client($d));
@@ -65,6 +88,10 @@
 				case 'updateappointments':
 					$d = json_decode(file_get_contents("php://input")); 
 					echo json_encode($post->update_appointment($d));
+				break;
+				case 'userupdateappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($post->userupdate_appointment($d));
 				break;
 
 
@@ -85,6 +112,15 @@
 					// print_r($d);
 					echo json_encode($post->delete_appointment($d));
 				break;
+
+				case 'userdeleteappointments':
+					$d = json_decode(file_get_contents("php://input")); 
+					// print_r($d);
+					echo json_encode($post->userdelete_appointment($d));
+				break;
+
+
+
 				//AUTH METHOD
 				case 'changepassword':
 					// $d = json_decode(file_get_contents("php://input")); 
@@ -94,13 +130,26 @@
 
 				case 'login':
 					$d = json_decode(file_get_contents("php://input")); 
-					echo json_encode($auth->login($d));
+					echo json_encode($auth->admin_login($d));
+				break;
+
+				case 'clientlogin':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($auth->client_login($d));
 				break;
 
 				case 'addaccounts':
 					$d = json_decode(file_get_contents("php://input")); 
-					echo json_encode($auth->add_account($d));
+					echo json_encode($auth->admin_registration($d));
 				break;
+
+				case 'addclientaccounts':
+					$d = json_decode(file_get_contents("php://input")); 
+					echo json_encode($auth->client_registration($d));
+
+				break;
+
+
 				# End POST Operations
 				
 				default:

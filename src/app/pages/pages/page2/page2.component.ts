@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -30,8 +30,8 @@ export class Page2Component implements OnInit {
   phoneNumber: string = '';
   closeResult = '';
   editForm : FormGroup;
-
-  
+  page :number = 1;
+  pageSize: number = 6;
   NotDelete: string = 'F';
   IsDelete : string = 'T';
 

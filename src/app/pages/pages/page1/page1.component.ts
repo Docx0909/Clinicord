@@ -1,5 +1,5 @@
 import { Component, OnInit, PipeTransform  } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -32,7 +32,8 @@ export class Page1Component implements OnInit {
   checkup: string='';
   closeResult = '';
   editForm : FormGroup;
-
+  page :number = 1;
+  pageSize: number = 6;
   NotDelete: string = 'F';
   IsDelete : string = 'T';
 
@@ -94,6 +95,7 @@ export class Page1Component implements OnInit {
   get_clients(){
     this.ds.processData('getclients', null).subscribe((res: any)=>{
       this.clients = res.data;
+      console.log(this.clients)
     });
   }
 

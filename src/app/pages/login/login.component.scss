@@ -1,50 +1,47 @@
-.page-container {
-    top: 25%;
-    left: 9%;
-    width: 300px;
-    height: auto;
-    padding: 20px;
+.page-container{
+    background-image: url('../../../assets/doctor.jpg');
     position: fixed;
-    border-radius: 20px;
-    background-color: white;
-    border: 1px solid #133b5c;
-    box-shadow: 0px 5px 5px 5px #888888;
-    background-color: rgba(255, 255, 255, 5);
-}
-
-.logo {
+    right: 0;
     width: 70%;
     height: 100%;
-    right: 0;
-    position: fixed;
-    z-index: -1;
 }
-
-.login-header {
-    margin: -40px -20px 20px;
-}
-
-h2 {
-    text-align: center;
+h1{
     color: white;
-    background-color: #215580;
-    border-radius: 20px 20px 0px 0px;
+    text-decoration-line: underline  #ffa500;;
+}
+.header{
+    display: flex;
+    justify-content: center;
     padding: 10px;
+
+}
+.main1 {
+    order: 1;
 }
 
-p {
-    text-align: center;
-    color: #133b5c;
-    font-size: 100%;
-    font-weight: bolder;
+.main2 {
+    order: 2;
+    margin: 15px 5px 0 5px ;
 }
-
-input {
-    border-radius: 25px;
+.login-header{
+    box-shadow: 0px 5px 5px 5px #888888;
+    top: 15%;
+    position: fixed;
+    border-radius: 20px;
+    background-color: #2b2e4a;
+    width: 22%;
+    left: 5%;
+}
+.login-inner{
+    border-radius: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 5);
+}
+input{
     padding: 20px;
 }
-
 input[type=password] {
+
     margin-bottom: 10%;
 }
 
@@ -56,4 +53,7 @@ button {
     font-weight: lighter;
     border-radius: 25px;
     letter-spacing: 2px;
+}
+label{
+    font-weight: bold;
 }

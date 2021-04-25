@@ -1,0 +1,50 @@
+<div class="header">
+    <div class="main1">
+        <a [routerLink]="" (click)="homepage()">
+            <h1><img class="logo" src="assets/logo.png"> {{ title }}</h1>
+        </a>
+    </div>
+    <div class="main2" ng-hide="_user.setLoggedOut()">
+        <p class="privacy text-light">
+            <a routerLink="/privacy" class="text-light">Privacy and Safety</a>
+        </p>
+    </div>
+</div>
+<div class="page-container d-flex justify-content-around" >
+    <div class="page-content-container">
+        <router-outlet></router-outlet>
+    </div>
+    <!--  -->
+    <div class="list-items" *ngIf="_user.isLoggedIn()">
+        <ul class="nav flex-column" id="sidebar">
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/dashboard"><i class="material-icons ">dashboard</i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page1"><i class="material-icons ">person_add</i> Clients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page2"><i class="material-icons ">contacts</i> Doctors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page3"><i class="material-icons ">note_add</i> Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page4"><i class="material-icons ">library_books</i> Reports</a>
+            </li>
+            <li class="nav-item">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton" ngbDropdownToggle>
+                    {{this.name}}
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <button ngbDropdownItem><i class="material-icons ">logout</i><a (click)="logoutButton()">Logout</a></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="footer ">
+        <label class="pull-left ">&copy; Clinicord 2020 (3Discovery) </label>
+    </div>
+</div>

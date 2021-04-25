@@ -25,9 +25,17 @@
     "@angular/router": "~10.2.0",
     "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@sweetalert2/ngx-sweetalert2": "^7.0.1",
+<<<<<<< Updated upstream
+=======
+    "angular-calendar": "^0.28.22",
+    "angular-notifier": "^9.0.1",
+>>>>>>> Stashed changes
     "bootstrap": "^4.5.0",
+    "date-fns": "^2.21.1",
+    "mdbootstrap": "^4.19.2",
     "ng-sidebar": "^9.4.2",
     "ngx-webstorage-service": "^4.1.0",
+    "pdfmake": "^0.1.71",
     "rxjs": "~6.6.0",
     "sweetalert2": "^10.12.5",
     "tslib": "^2.0.0",
@@ -37,9 +45,9 @@
     "@angular-devkit/build-angular": "~0.1002.0",
     "@angular/cli": "~10.2.0",
     "@angular/compiler-cli": "~10.2.0",
-    "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",

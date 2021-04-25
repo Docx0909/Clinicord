@@ -40,15 +40,7 @@ export class LoginComponent implements OnInit {
   
   get f() { return this.loginForm.controls; }
 
-<<<<<<< Updated upstream
-  onSubmit(e) {
-    e.preventDefault();
-    let param1 = e.target[0].value;
-        let param2 = e.target[1].value;
-=======
   onSubmit(event: any) {
- 
->>>>>>> Stashed changes
  
       if (this.loginForm.valid){
         try{

@@ -1,7 +1,7 @@
 import { Component, OnInit, PipeTransform  } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
@@ -28,7 +28,7 @@ export class Page1Component implements OnInit {
   age: any = '';
   address: string ='';
   phoneNumber: string = '';
-  findings:string='';
+  bloodtype: string = '';
   checkup: string='';
   closeResult = '';
   editForm : FormGroup;
@@ -55,7 +55,6 @@ export class Page1Component implements OnInit {
       address: client.Client_address,
       phoneNumber: client.Client_phone,
       findings: client.Client_findings,
-      checkup: client.Client_IsForCheckup
     })
   }
 
@@ -83,13 +82,13 @@ export class Page1Component implements OnInit {
 
     this.editForm = this.fb.group({
           id : [''],
-          fullname: [''],
-          gender:[''] ,
-          age:  [''],
-          address: [''],
-          phoneNumber:[''] ,
-          findings:[''] ,
-          checkup: ['']
+          fullname: ['', Validators.required],
+          gender:['', Validators.required] ,
+          age:  ['', Validators.required],
+          address: ['', Validators.required],
+          phoneNumber:['', Validators.required] ,
+          findings:['', Validators.required] ,
+          checkup: ['', Validators.required]
     })
   }
   get_clients(){
@@ -119,8 +118,6 @@ export class Page1Component implements OnInit {
         Client_age: this.age, 
         Client_address: this.address, 
         Client_phone: this.phoneNumber, 
-        Client_findings: this.findings,
-        Client_IsForCheckup: this.checkup,
         IsDeleted: this.NotDelete }).subscribe((response: any)=>{
      
         Swal.fire({

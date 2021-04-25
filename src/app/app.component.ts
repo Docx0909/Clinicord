@@ -1,9 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { DataService } from './services/data.service';
-import { UserService } from './services/user.service';
-import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 @Component({
@@ -12,6 +7,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+<<<<<<< Updated upstream
   title = 'Clinicord';
 
   
@@ -57,6 +53,12 @@ export class AppComponent {
             this._router.navigate(['login']);
         }
       })
+=======
+
+  constructor() {}
+
+  ngOnInit(): void {
+>>>>>>> Stashed changes
   }
 
   

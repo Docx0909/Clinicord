@@ -5,7 +5,7 @@
     <div class="container-outer">
         <div class="app">
             <div class="modal-body">
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" ngNativeValidate autocomplete=" disabled ">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" ngNativeValidate autocomplete="disabled">
                     <div class="form-group ">
                         <label>Username</label>
                         <input type="text " formControlName="username" class="form-control " [ngClass]="{ 'is-invalid': submitted && f.username.errors } " />

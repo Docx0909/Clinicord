@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -12,60 +13,78 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  loginForm: FormGroup;
+
 
   constructor(
     private _ds: DataService,
     private _user: UserService,
     private _router: Router,
-    private localStorageService: LocalStorageService
+    public localStorageService: LocalStorageService,
+    private fb: FormBuilder
   ) { }
 
   public name: string;
 
 
   ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+  })
+
     if(this._user.isLoggedIn()){
-      this._router.navigate(['dashboard']);
+      this._router.navigate(['/tabs/dashboard']);
     }
   }
   
+  get f() { return this.loginForm.controls; }
 
+<<<<<<< Updated upstream
   onSubmit(e) {
     e.preventDefault();
     let param1 = e.target[0].value;
         let param2 = e.target[1].value;
+=======
+  onSubmit(event: any) {
  
-      if (param1 != "" || param2 != ""){
+>>>>>>> Stashed changes
+ 
+      if (this.loginForm.valid){
         try{
-        this._ds.processData('login', { param1, param2 }).subscribe((res: any)=>{
-
-          this.localStorageService.setItem("myValue", param1)
-          this.name = this.localStorageService.getItem("myValue")
-          Swal.fire({
-          html: '<h2> Welcome!</h2> ' + '<h4>' + this.name + '</h4>' ,
-          icon: 'success',
-          showCancelButton: false,
-          confirmButtonColor: '#3085d6'}).then((result) => {
-            if (result.isConfirmed) {
-            
-                this._user.setLoggedIn();
-                this._router.navigate(['dashboard']);
-            }
-          })
-        });
-          }  catch (Error)   
+        this._ds.processData('login', this.loginForm.value).subscribe((res: any)=>{
+          this.localStorageService.setItem("myValue", res.data.User_username);
+          this.name = this.localStorageService.getItem("myValue");
+          if(res.data.User_role == "admin"){
+            Swal.fire({
+              html: '<h2> Welcome!</h2> ' + '<h4>' + this.name + '</h4>' ,
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6'}).then((result) => {
+                if (result.isConfirmed) {
+                
+                    this._user.setLoggedIn();
+                    this._router.navigate(['/tabs']);
+                }
+              })
+          }else{
+              Swal.fire({
+                icon: 'error',
+                title: 'Login failed!',
+                text: 'Retry',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6'});
+              }
+           });
+          }  catch (error)   
           {  
-            // alert(Error.message);  
-          }  
-          }   else{
             Swal.fire({
               icon: 'error',
               title: 'Login failed!',
               text: 'Retry',
               showCancelButton: false,
               confirmButtonColor: '#3085d6'});
-          }
-    }
-      
-  
+          }  
+       }  
+    } 
 }

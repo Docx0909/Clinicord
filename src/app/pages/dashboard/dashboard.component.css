@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:src/app/pages/dashboard/dashboard.component.css
 .page-container {
     position: fixed;
     text-align: center;
@@ -15,3 +16,30 @@ p {
     font-weight: bold;
     margin: 40px 320px 0 220px;
 }
+=======
+.page-container {
+    text-align: center;
+}
+
+img {
+    position: relative;
+    margin-right: 150px;
+}
+
+p {
+    position: relative;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #133b5c;
+    font-weight: bold;
+    margin: 80px 300px 0 120px;
+}
+h3 {
+    margin: 0 0 10px;
+  }
+  
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+  }
+>>>>>>> Stashed changes:src/app/pages/pages/dashboard/dashboard.component.css

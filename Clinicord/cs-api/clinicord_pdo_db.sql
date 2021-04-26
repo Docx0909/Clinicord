@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2021 at 02:18 PM
+-- Generation Time: Apr 26, 2021 at 07:11 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.3.27
 
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `clinicord_pdo_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts_tbl`
+--
+
+CREATE TABLE `accounts_tbl` (
+  `id` int(11) NOT NULL,
+  `User_username` varchar(50) NOT NULL,
+  `User_email` varchar(50) NOT NULL,
+  `User_password` varchar(100) NOT NULL,
+  `User_image` varchar(255) NOT NULL,
+  `User_role` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `accounts_tbl`
+--
+
+INSERT INTO `accounts_tbl` (`id`, `User_username`, `User_email`, `User_password`, `User_image`, `User_role`) VALUES
+(74, 'tags123', 'geraldtagle09@gmail.com', '$2y$10$MjBjNmQxNzMzMzVmMDg2MumsckXE3oRjw2MX./1cpjm28.yCg/xrK', '20210419T133229+0800.png', 'client'),
+(75, 'admin123', 'Mcdo@business.com.ph', '$2y$10$YTE0NmUyYzU0ZDM0ZjNhN.7E/WdMbee6BnRnH9YeeZ/6.8YrnCbH2', '', 'admin'),
+(76, 'edgardo123', 'edgar@yahoo.com', '$2y$10$OTkyZDM3YTQ3YzMzODkxOO/f/xFTmh7ca440l2cDspmWQoBal23qW', '20210420T230746+0800.png', 'client'),
+(82, 'test123', 'test@yahoo.com', '$2y$10$ZTkwZGQ2ZTg5NWZlYjViZO7tlNPdW07Ctn3HG3FXssazHEl15eIEC', '20210421T133621+0800.png', 'client'),
+(83, 'testdoctor123', 'testdoctor@yahoo.com', '$2y$10$ZTkwZGQ2ZTg5NWZlYjViZO7tlNPdW07Ctn3HG3FXssazHEl15eIEC', '', 'doctor'),
+(84, 'testtest123', 'testtest@yahoo.com', '$2y$10$MzM0YzU4ODBlN2U0YTUyOOumVlHl3PMz6Cpc4qEvtXmorEQm7AuJy', '20210424T224305+0800.png', 'client'),
+(85, 'hakerman123', 'hakeeman@yahoo.com', '$2y$10$MzgyMWMxZjkxYTI5ZjlhOOwNv98uy58ayiSkbYB1OsqFkoi54TasG', '20210424T231540+0800.png', 'client'),
+(86, 'anotherdoct123', 'anotherdoct123@yahoo.com', '$2y$10$YzNmMzA3YTkyYjI4ZmQ4NedOxxYy8waAKEEeqM0/tUQoj2h3g74wS', '20210426T113249+0800.png', 'doctor'),
+(87, 'hakdogdoctor123', 'doctorhakdog@yahoo.com', '$2y$10$NDI1MTM2ZmYzNTU0ZmEyO.MoRWYA6aSAHBF4go01dZfN6vtm0Rmg2', '20210426T122106+0800.png', 'doctor');
 
 -- --------------------------------------------------------
 
@@ -41,8 +71,7 @@ CREATE TABLE `admin_accounts` (
 
 INSERT INTO `admin_accounts` (`id`, `Doctor_id`, `Doctor_email`, `Doctor_username`, `Doctor_password`) VALUES
 (31, 0, 'Mcdo@business.com.ph', 'admin123', '$2y$10$YTE0NmUyYzU0ZDM0ZjNhN.7E/WdMbee6BnRnH9YeeZ/6.8YrnCbH2'),
-(32, 0, 'geraldtagle09@gmail.com', 'gerald09', '$2y$10$ZDgzMmJjYjY5YmIyMjU2NOvdkotlOtGggKkEpOYEKeIveQ2JnyTcq'),
-(41, 0, '', '', '$2y$10$NjNlMzg1ZTI5NjM1N2Y3MuhzVXCFCthGZXMEnThAHM3X4HbU7q5fq');
+(32, 0, 'geraldtagle09@gmail.com', 'gerald09', '$2y$10$ZDgzMmJjYjY5YmIyMjU2NOvdkotlOtGggKkEpOYEKeIveQ2JnyTcq');
 
 -- --------------------------------------------------------
 
@@ -53,12 +82,13 @@ INSERT INTO `admin_accounts` (`id`, `Doctor_id`, `Doctor_email`, `Doctor_usernam
 CREATE TABLE `checkup_tbl` (
   `ap_id` int(11) NOT NULL,
   `U_id` int(11) NOT NULL,
-  `Client_name` varchar(50) NOT NULL,
+  `Doctor_id` int(11) NOT NULL,
   `ap_type` varchar(255) NOT NULL,
   `ap_date` date NOT NULL,
   `ap_time` time NOT NULL,
   `ap_status` varchar(100) NOT NULL,
   `ap_description` varchar(100) NOT NULL,
+  `ap_FirstTime` varchar(5) NOT NULL,
   `createdOn` datetime NOT NULL DEFAULT current_timestamp(),
   `UpdatedOn` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `IsDeleted` char(5) NOT NULL
@@ -68,34 +98,8 @@ CREATE TABLE `checkup_tbl` (
 -- Dumping data for table `checkup_tbl`
 --
 
-INSERT INTO `checkup_tbl` (`ap_id`, `U_id`, `Client_name`, `ap_type`, `ap_date`, `ap_time`, `ap_status`, `ap_description`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
-(19, 42, 'test account', 'Urgent', '2021-04-13', '10:00:00', 'Finished', 'Over Due Pregnancy', '2021-04-10 20:29:58', '2021-04-12 13:08:28', 'T'),
-(27, 42, 'test account', 'Mild', '2021-04-14', '16:56:50', 'Finished', 'Scheduled checkup', '2021-04-11 17:02:18', '2021-04-12 12:59:39', 'F'),
-(28, 43, 'Ron Benedict Panes', 'Urgent', '2021-04-15', '13:00:50', 'Approved', 'Checkup for lungs', '2021-04-12 12:05:00', '2021-04-12 12:59:48', 'F'),
-(29, 44, 'Gerald B. Tagle', '', '2021-04-15', '10:00:52', 'Finished', 'Tooth Extraction', '2021-04-12 12:51:28', '2021-04-12 12:53:49', 'T');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `client_accounts`
---
-
-CREATE TABLE `client_accounts` (
-  `id` int(11) NOT NULL,
-  `User_username` varchar(50) NOT NULL,
-  `User_email` varchar(50) NOT NULL,
-  `User_password` varchar(100) NOT NULL,
-  `User_image` blob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `client_accounts`
---
-
-INSERT INTO `client_accounts` (`id`, `User_username`, `User_email`, `User_password`, `User_image`) VALUES
-(42, 'test123', 'test123@gmail.com', '$2y$10$OTdlMjMyNTRmNzM2NTMxYOb42rcn5lNicV9x0DAYOl0hN6/t74AXO', ''),
-(43, 'ron123', 'ronpanes@gmail.com', '$2y$10$NWVkNzFhYzBlZjAyNmI3Ye6PRx4iQNsa0OrTKeznI3CgaOVZh.3WS', ''),
-(44, 'gerald123', 'geraldtagle09@gmail.com', '$2y$10$OGYxZTQwZTljY2UwOGEzYOvGcYUf1cbpUQxMgSqG1zZbGsssoak5O', '');
+INSERT INTO `checkup_tbl` (`ap_id`, `U_id`, `Doctor_id`, `ap_type`, `ap_date`, `ap_time`, `ap_status`, `ap_description`, `ap_FirstTime`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
+(30, 74, 83, 'Mild', '2021-04-22', '16:30:09', 'Canceled', 'Follow up checkup', 'Yes', '2021-04-21 15:31:17', '2021-04-25 23:53:20', 'F');
 
 -- --------------------------------------------------------
 
@@ -132,9 +136,11 @@ CREATE TABLE `client_tbl` (
 --
 
 INSERT INTO `client_tbl` (`Client_id`, `U_id`, `Client_name`, `Client_gender`, `Client_age`, `Client_birthdate`, `Client_address`, `Client_phone`, `Client_weight`, `Client_height`, `Client_bloodtype`, `Client_healthcondition`, `Client_healthsymptoms`, `Client_healthmedication`, `Client_healtallergies`, `Client_healthtobacco`, `Client_drughistory`, `Client_alcoholhistory`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
-(59, 42, 'test account', 'Male', '25', '1978-04-08', 'Olongapo City', '921312321', '87.00', '1.71', 'AB+', 'Anemic', 'Sinusitis', 'Yes', 'Yes', 'Yes', 'Yes', 'Occasionally', '2021-04-08 13:29:44', '0000-00-00 00:00:00', 'F'),
-(60, 43, 'Ron Benedict Panes', 'Male', '21', '1997-04-12', 'West Bajac-Bajac, Olongapo City', '921327522', '90.00', '1.60', 'A+', 'Body Pain', 'Sinusitis', 'Yes', 'Yes', 'Yes', 'Yes', 'Occasionally', '2021-04-12 11:59:32', '0000-00-00 00:00:00', 'F'),
-(61, 44, 'Gerald B. Tagle', 'Male', '22', '1999-09-09', 'Brgy. Pagasa, Olongapo City', '9301189136', '60.00', '1.71', 'O+', 'High Blood', 'Sinusitis, Cough', 'Yes', 'No', 'No', 'No', 'Occasionally', '2021-04-12 12:49:18', '0000-00-00 00:00:00', 'F');
+(74, 74, 'gerald tagle ', 'Male', '22', '2014-04-19', 'Barangay Ppagasa ', '9301189136', '55.00', '1.71', 'O+', 'None', 'None', 'No', 'No', 'No', 'No', 'Occasionally', '2021-04-19 13:32:29', '0000-00-00 00:00:00', 'F'),
+(75, 76, 'Edgar Ricardo', 'Male', '55', '1962-04-20', 'Olongapo City', '9189393157', '89.00', '1.58', 'A-', 'Arthritis', 'Cough', 'Yes', 'No', 'Yes', 'Yes', 'Occasionally', '2021-04-20 23:07:46', '0000-00-00 00:00:00', 'F'),
+(82, 82, 'test test', 'Male', '56', '2021-04-21', 'Olongapo City', '9301189136', '90.00', '1.85', 'AB+', 'none', 'none', 'No', 'Not Sure', 'No', 'No', 'Never', '2021-04-21 13:36:21', '0000-00-00 00:00:00', 'F'),
+(83, 84, 'sads', 'sadsa', '123', '0000-00-00', 'asdas', '21321', '23.00', '1.00', 'A', 'ASD', 'AS', 'SAD', 'DASD', 'ASD', 'ASDAS', 'DASD', '2021-04-24 22:43:05', '0000-00-00 00:00:00', 'F'),
+(84, 85, 'haker man', 'Male', '65', '2021-04-24', 'Olongapo City', '9301189316', '68.00', '1.45', 'O+', 'none', 'none', 'No', 'Not Sure', 'No', 'No', 'Never', '2021-04-24 23:15:40', '0000-00-00 00:00:00', 'F');
 
 -- --------------------------------------------------------
 
@@ -144,10 +150,13 @@ INSERT INTO `client_tbl` (`Client_id`, `U_id`, `Client_name`, `Client_gender`, `
 
 CREATE TABLE `doctor_tbl` (
   `Doctor_id` int(11) NOT NULL,
+  `U_id` int(11) NOT NULL,
   `Doctor_name` varchar(30) NOT NULL,
   `Doctor_specialty` varchar(30) NOT NULL,
   `Doctor_gender` varchar(10) NOT NULL,
   `Doctor_age` varchar(11) NOT NULL,
+  `Doctor_birthdate` varchar(50) NOT NULL,
+  `Doctor_address` varchar(50) NOT NULL,
   `Doctor_phone` varchar(12) NOT NULL,
   `createdOn` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `UpdatedOn` datetime NOT NULL,
@@ -158,19 +167,20 @@ CREATE TABLE `doctor_tbl` (
 -- Dumping data for table `doctor_tbl`
 --
 
-INSERT INTO `doctor_tbl` (`Doctor_id`, `Doctor_name`, `Doctor_specialty`, `Doctor_gender`, `Doctor_age`, `Doctor_phone`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
-(3, 'Tagle, Gerald B.', 'Optometrist', 'M', '26', '0921312321', '2020-12-16 12:36:42', '2021-03-05 14:21:27', 'F'),
-(4, 'Crisaldo Mercurio', 'Cardiologist', 'M', '44', '0921312321', '2020-12-16 12:36:46', '2021-03-05 14:21:27', 'F'),
-(5, 'Feliza Diosdado', 'Psychotherapist', 'F', '32', '0921312321', '2020-12-16 12:36:48', '2021-03-05 14:21:27', 'F'),
-(10, 'Prince Delacruz', 'Dermatologists', 'F', '36', '0921312321', '2021-03-05 00:17:22', '2021-03-05 14:21:27', 'F'),
-(11, 'Miraflor Macaraeg', 'Dermatologists', 'F', '35', '0921312321', '2021-03-05 00:11:08', '2021-03-05 14:21:27', 'F'),
-(12, 'Jose Manalo', 'Endocrinologists', 'F', '28', '0921312321', '2021-03-15 22:47:02', '2021-03-15 22:47:02', 'F'),
-(13, 'Jose Bundang', 'Physician', 'M', '54', '0921312321', '2020-12-19 13:21:58', '2021-03-05 14:21:27', 'T'),
-(14, 'Crisaldo Mercurio', 'Physician', 'M', '21', '09343243432', '2020-12-17 11:41:53', '2021-03-05 14:21:27', 'T');
+INSERT INTO `doctor_tbl` (`Doctor_id`, `U_id`, `Doctor_name`, `Doctor_specialty`, `Doctor_gender`, `Doctor_age`, `Doctor_birthdate`, `Doctor_address`, `Doctor_phone`, `createdOn`, `UpdatedOn`, `IsDeleted`) VALUES
+(15, 83, 'doctor test', 'cardiologist', 'Male', '26', '', '', '09213125312', '2021-04-21 15:29:59', '2021-04-21 09:29:18', 'F'),
+(16, 86, 'sads', 'cardiologist', 'sadsa', '123', 'sadas', 'asdas', '213213', '2021-04-26 11:32:49', '0000-00-00 00:00:00', 'F'),
+(17, 87, 'Hak Dog', 'Cardiologist', 'Male', '55', '1991-04-26T12:19:01.447+08:00', 'Olongapo City', '9301189136', '2021-04-26 12:21:07', '0000-00-00 00:00:00', 'F');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts_tbl`
+--
+ALTER TABLE `accounts_tbl`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `admin_accounts`
@@ -184,13 +194,8 @@ ALTER TABLE `admin_accounts`
 --
 ALTER TABLE `checkup_tbl`
   ADD PRIMARY KEY (`ap_id`),
-  ADD KEY `U_id` (`U_id`);
-
---
--- Indexes for table `client_accounts`
---
-ALTER TABLE `client_accounts`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `U_id` (`U_id`),
+  ADD KEY `Doctor_id` (`Doctor_id`);
 
 --
 -- Indexes for table `client_tbl`
@@ -203,11 +208,18 @@ ALTER TABLE `client_tbl`
 -- Indexes for table `doctor_tbl`
 --
 ALTER TABLE `doctor_tbl`
-  ADD PRIMARY KEY (`Doctor_id`);
+  ADD PRIMARY KEY (`Doctor_id`),
+  ADD KEY `U_id` (`U_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `accounts_tbl`
+--
+ALTER TABLE `accounts_tbl`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
 
 --
 -- AUTO_INCREMENT for table `admin_accounts`
@@ -219,25 +231,19 @@ ALTER TABLE `admin_accounts`
 -- AUTO_INCREMENT for table `checkup_tbl`
 --
 ALTER TABLE `checkup_tbl`
-  MODIFY `ap_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `client_accounts`
---
-ALTER TABLE `client_accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `ap_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `client_tbl`
 --
 ALTER TABLE `client_tbl`
-  MODIFY `Client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `Client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `doctor_tbl`
 --
 ALTER TABLE `doctor_tbl`
-  MODIFY `Doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Doctor_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Constraints for dumped tables
@@ -247,13 +253,20 @@ ALTER TABLE `doctor_tbl`
 -- Constraints for table `checkup_tbl`
 --
 ALTER TABLE `checkup_tbl`
-  ADD CONSTRAINT `checkup_tbl_ibfk_1` FOREIGN KEY (`U_id`) REFERENCES `client_accounts` (`id`);
+  ADD CONSTRAINT `checkup_tbl_ibfk_1` FOREIGN KEY (`U_id`) REFERENCES `accounts_tbl` (`id`),
+  ADD CONSTRAINT `checkup_tbl_ibfk_2` FOREIGN KEY (`Doctor_id`) REFERENCES `accounts_tbl` (`id`);
 
 --
 -- Constraints for table `client_tbl`
 --
 ALTER TABLE `client_tbl`
-  ADD CONSTRAINT `client_tbl_ibfk_1` FOREIGN KEY (`U_id`) REFERENCES `client_accounts` (`id`);
+  ADD CONSTRAINT `client_tbl_ibfk_1` FOREIGN KEY (`U_id`) REFERENCES `accounts_tbl` (`id`);
+
+--
+-- Constraints for table `doctor_tbl`
+--
+ALTER TABLE `doctor_tbl`
+  ADD CONSTRAINT `doctor_tbl_ibfk_1` FOREIGN KEY (`U_id`) REFERENCES `accounts_tbl` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

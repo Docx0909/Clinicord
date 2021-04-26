@@ -81,18 +81,18 @@
 			$status = 'Pending';
 				
 			try{
-			$sql = "SELECT client_tbl.Client_name FROM client_tbl WHERE U_id='$d->account_id'";
-			$name = $this->pdo->query($sql)->fetchAll();
-			{
-				$name = $name[0]['Client_name'];
+			// $sql = "SELECT client_tbl.Client_name FROM client_tbl WHERE U_id='$d->account_id'";
+			// $name = $this->pdo->query($sql)->fetchAll();
+			// {
+			// 	$name = $name[0]['Client_name'];
 
-			}
+			// }
 
-			$sql = "INSERT INTO checkup_tbl (U_id, Client_name, ap_date, ap_time, ap_status, ap_description, IsDeleted) VALUES (?,?,?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO checkup_tbl (U_id, Doctor_id, ap_date, ap_time, ap_status, ap_description, IsDeleted) VALUES (?,?,?, ?, ?, ?, ?)";
 			$sql = $this->pdo->prepare($sql);
 			$sql->execute([
 				$d->account_id,
-				$name,
+				$d->doctor_id,
 				$d->appointform->ap_date,
 				$d->appointform->ap_time,
 				$status,
@@ -142,10 +142,9 @@
 			return $this->get->get_doctors();
 			}
 		public function update_appointment($d) {
-			$sql = "UPDATE checkup_tbl SET Client_name = ?, ap_type = ?, ap_date = ?,ap_time = ?, ap_status = ?, ap_description= ?,  UpdatedOn = NOW() WHERE ap_id=?";
+			$sql = "UPDATE checkup_tbl SET ap_type = ?, ap_date = ?,ap_time = ?, ap_status = ?, ap_description= ?,  UpdatedOn = NOW() WHERE ap_id=?";
 			$sql = $this->pdo->prepare($sql);
 			$sql->execute([
-				$d->fullname,
 				$d->type,
 				$d->model,
 				$d->time,

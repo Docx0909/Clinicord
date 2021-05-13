@@ -32,8 +32,9 @@ export class Page4Component implements OnInit {
     // }
   }
 
-  ngOnInit(): void {
+  ngOnInit(){
     this.get_healthprofile();
+    this.statement;
   }
 
   get_healthprofile(){

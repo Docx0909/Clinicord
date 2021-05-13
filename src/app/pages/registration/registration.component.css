@@ -1,4 +1,18 @@
- .page-container {
+.container-fluid{
+    position: fixed;
+    margin-top: 2%;
+    left: 35%;
+}
+.card-header{
+    background-color: #215580;
+    color: white;
+
+}
+/* .body{
+    background-image: url('../../../assets/doctor.jpg');
+    z-index: 1;
+} */
+/* .page-container {
      top: 18%;
      left: 30%;
      height: 14cm;
@@ -31,4 +45,4 @@
      background-color: #215580;
      border-radius: 20px 20px 0px 0px;
      padding: 10px;
- }
+ } */

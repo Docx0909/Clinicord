@@ -13,3 +13,7 @@ button span{
 .action-buttons button{
     margin : 5px;
 }
+.container-fluid {
+    position: relative;
+    right: 10%;
+}

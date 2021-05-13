@@ -3,6 +3,7 @@ import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { Validators,FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {users} from 'src/app/services/filter.pipe';
 
 
 const swalWithBootstrapButtons = Swal.mixin({
@@ -19,10 +20,11 @@ const swalWithBootstrapButtons = Swal.mixin({
   styleUrls: ['./page3.component.scss']
 })
 export class Page3Component implements OnInit {
+  firstname: any;
   page :number = 1;
-  pageSize: number = 6;
+  pageSize: number = 4;
   appointments: any;
-  clients: any;
+  clients: users [] = [];
   id:any;
   fullname: string;
   type: string;
@@ -109,13 +111,22 @@ editModal(contentEdit, appointment){
   }
 
   get_appointments(){
-    this.ds.processData('getappointments', null).subscribe((res: any)=>{
+    this.ds.newprocessData('getappointments', null).subscribe((res: any)=>{
       this.appointments = res.data;
       console.log(this.appointments);
     });   
    }
 
+   search(){
+    if (this.firstname == ""){
+        this.ngOnInit();
+    }else{
+        this.appointments = this.appointments.filter((res: any)=>{
+          return res.Doctor_name?.toLocaleLowerCase().match(this.firstname?.toLocaleLowerCase()) || res.Client_name?.toLocaleLowerCase().match(this.firstname?.toLocaleLowerCase());
 
+        });
+    }
+  }
    create_appointments(){
       this.get_date();
       if (this.createForm.invalid){

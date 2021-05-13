@@ -1,4 +1,21 @@
-<div class="header">
+<nav class="navbar navbar-expand-lg py-1  sticky-top">
+    <a class="navbar-brand text-light"  [routerLink]="" (click)="homepage()">
+        <h1><img class="logo" src="assets/logo.png"> {{ title }}</h1>
+    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto text-light">
+        <li class="nav-item active">
+            <p class="privacy text-light">
+                <a routerLink="/privacy" class="text-light">Privacy and Safety</a>
+            </p>      
+        </li>
+    </ul>
+  </div>
+</nav>
+<!-- <div class="header">
     <div class="main1">
         <a [routerLink]="" (click)="homepage()">
             <h1><img class="logo" src="assets/logo.png"> {{ title }}</h1>
@@ -9,13 +26,13 @@
             <a routerLink="/privacy" class="text-light">Privacy and Safety</a>
         </p>
     </div>
-</div>
+</div> -->
 <div class="page-container d-flex justify-content-around" >
     <div class="page-content-container">
         <router-outlet></router-outlet>
     </div>
-    <!--  -->
-    <div class="list-items" *ngIf="_user.isLoggedIn()">
+ <!-- *ngIf="_user.isLoggedIn()" -->
+    <div class="list-items" >
         <ul class="nav flex-column" id="sidebar">
             <li class="nav-item">
                 <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/dashboard"><i class="material-icons ">dashboard</i> Dashboard</a>

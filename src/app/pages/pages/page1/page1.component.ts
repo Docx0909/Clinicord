@@ -3,7 +3,7 @@ import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import {users} from 'src/app/services/filter.pipe';
 
 
 const swalWithBootstrapButtons = Swal.mixin({
@@ -21,8 +21,9 @@ const swalWithBootstrapButtons = Swal.mixin({
   styleUrls: ['./page1.component.scss']
 })
 export class Page1Component implements OnInit {
-  clients: [];
+  clients: users [] = [];
   id: any = '';
+  firstname: any;
   fullname: string ;
   gender: string ;
   age: any = '';
@@ -33,9 +34,10 @@ export class Page1Component implements OnInit {
   closeResult = '';
   editForm : FormGroup;
   page :number = 1;
-  pageSize: number = 6;
+  pageSize: number = 4;
   NotDelete: string = 'F';
   IsDelete : string = 'T';
+  url: string = 'http://localhost/Clinicord/cs-api/images/';
 
 
   constructor(private ds: DataService, private modalService: NgbModal, private fb: FormBuilder) { }
@@ -55,7 +57,16 @@ export class Page1Component implements OnInit {
       age:  client.Client_age,
       address: client.Client_address,
       phoneNumber: client.Client_phone,
-      findings: client.Client_findings,
+      weight: client.Client_weight,
+      bloodtype: client.Client_bloodtype,
+      healthcondition: client.Client_healthcondition,
+      symptoms: client.Client_healthsymptoms,
+      medication: client.Client_healthmedication,
+      allergy:  client.Client_healtallergies,
+      tobacco: client.Client_healthtobacco,
+      drug: client.Client_drughistory,
+      alcohol: client.Client_alcoholhistory
+
     })
   }
 
@@ -88,17 +99,38 @@ export class Page1Component implements OnInit {
           age:  ['', Validators.required],
           address: ['', Validators.required],
           phoneNumber:['', Validators.required] ,
-          findings:['', Validators.required] ,
-          checkup: ['', Validators.required]
+          weight:['', Validators.required] ,
+          bloodtype: ['', Validators.required],
+          healthcondition: ['', Validators.required],
+          symptoms: ['', Validators.required],
+          medication: ['', Validators.required],
+          allergy: ['', Validators.required],
+          tobacco: ['', Validators.required],
+          drug: ['', Validators.required],
+          alcohol: ['', Validators.required]
+
+
+
     })
   }
   get_clients(){
-    this.ds.processData('getclients', null).subscribe((res: any)=>{
+    this.ds.newprocessData('getclients', null).subscribe((res: any)=>{
       this.clients = res.data;
       console.log(this.clients)
     });
   }
+  search(){
+    if (this.firstname == ""){
+        this.ngOnInit();
+    }else{
+        this.clients = this.clients.filter((res: any)=>{
+          return res.Client_name?.toLocaleLowerCase().match(this.firstname?.toLocaleLowerCase());
 
+        });
+    }
+
+
+  }
  async create_clients(event){
     
 
@@ -169,9 +201,8 @@ export class Page1Component implements OnInit {
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
+        confirmButtonText: 'Proceed '
+      
       }).then((result) => {
         if (result.isConfirmed) {
 

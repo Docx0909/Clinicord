@@ -2,15 +2,21 @@
     <h2>
         My Doctors
     </h2>
-    <button class="btn btn-lg btn-outline-primary" (click)="open(content)"><span class="material-icons">
-        person_add
-        </span></button>
-    <hr>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"> <button class="btn btn-sm btn-outline-primary" (click)="open(content)"><span class="material-icons">
+            person_add
+            </span></button></a>
+        <form class="form-inline">
+            <input type="text" class="form-control mr-sm-2" name="firstname" [(ngModel)]="firstname" (ngModelChange)="search()" placeholder="Search by name">
+        </form>
+      </nav>
     <div class="table-responsive ">
+     
         <table class="table ">
             <!-- <th scope="col" hidden>Doctor Id</th> -->
             <!-- <th scope="col">#</th> -->
-            <th scope="col">Doctor</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
             <th scope="col">Specialization</th>
             <th scope="col">Contact</th>
             <th scope="col">Date Created</th>
@@ -21,6 +27,9 @@
                 <tr *ngFor="let doctor of doctors | slice: (page-1) * pageSize : page * pageSize; let i = index">
                     <!-- <td hidden>{{ doctor.Doctor_id }}</td> -->
                     <!-- <td>{{ i + 1 }}</td> -->
+                    <td>
+                        <img src="http://192.168.1.59/Clinicord/cs-api/images/{{doctor.User_image}}" alt="" style="width: 50px;height: 50px;">
+                    </td>
                     <td>{{ doctor.Doctor_name }}</td>
                     <td>{{ doctor.Doctor_specialty}}</td>
                     <td>{{ doctor.Doctor_phone }}</td>
@@ -48,7 +57,7 @@
 
         <ng-template #content let-modal>
             <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Doctor Profile</h4>
+                <h4 class="modal-title" id="modal-basic-title">Add Doctor </h4>
                 <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">&times;</span>
               </button>

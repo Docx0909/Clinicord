@@ -4,6 +4,7 @@ import { DataService } from 'src/app/services/data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MustWatch } from '../helper/must-watch.validator';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { UserService } from 'src/app/services/user.service';
 
 
 
@@ -14,12 +15,14 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 })
 export class RegistrationComponent implements OnInit {
   
+  title = 'Clinicord';
 
   registerForm: FormGroup;
   submitted = false;
 
 
   constructor(
+    public _user: UserService,
     private _ds: DataService,
     private _router: Router,
     private fb: FormBuilder ) {}
@@ -96,10 +99,15 @@ export class RegistrationComponent implements OnInit {
                }
   
     }
-    onReset() {
-      this.submitted = false;
-      this.registerForm.reset();
-      this._router.navigate(['login']);
+
+   
+
+  homepage(){
+    if(this._user.isLoggedIn()){
+      this._router.navigate(['/tabs']);
+    }else{
+      this._router.navigate(['/']);
+    }
 
   }
   

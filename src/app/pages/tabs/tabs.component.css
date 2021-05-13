@@ -1,3 +1,7 @@
+nav{
+    background-color: #2b2e4a;
+
+}
 .page-container {
     display: flex;
     flex-direction: row;
@@ -10,6 +14,7 @@
 }
 
 .list-items {
+    height: 100%;
     order: 1;
 }
 
@@ -47,7 +52,7 @@
 h1 {
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 300%;
+    font-size: 200%;
     font-weight: bold;
 }
 
@@ -65,14 +70,12 @@ a:focus {
 }
 
 #sidebar {
-    z-index: 1;
-    position: sticky;
+    position: fixed;
+    height: 1500px;
     right:0;  
     margin-top: 0;
-    min-height: calc(100vh - 0px);
     background-color: #133b5c;
     color: #fcfcfc;
-    bottom: 0;
 }
 
 .btn {

@@ -3,6 +3,7 @@ import { DataService } from '../../../services/data.service';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {users} from 'src/app/services/filter.pipe';
 
 
 const swalWithBootstrapButtons = Swal.mixin({
@@ -20,8 +21,8 @@ const swalWithBootstrapButtons = Swal.mixin({
   styleUrls: ['./page2.component.scss']
 })
 export class Page2Component implements OnInit {
-  doctors: any;
-
+  doctors: users [] = [];
+  firstname: any;
   id:any;
   fullname: string = '';
   specialty: string = '';
@@ -31,7 +32,7 @@ export class Page2Component implements OnInit {
   closeResult = '';
   editForm : FormGroup;
   page :number = 1;
-  pageSize: number = 6;
+  pageSize: number = 4;
   NotDelete: string = 'F';
   IsDelete : string = 'T';
 
@@ -85,15 +86,26 @@ export class Page2Component implements OnInit {
       age:  [''],
       phoneNumber: [''],
 
-})
+    })
   }
  
   get_doctors(){
-    this.ds.processData('getdoctors', null).subscribe((res: any)=>{
+    this.ds.newprocessData('getdoctors', null).subscribe((res: any)=>{
       this.doctors = res.data;
    
     });   
    }
+
+   search(){
+    if (this.firstname == ""){
+        this.ngOnInit();
+    }else{
+        this.doctors = this.doctors.filter((res: any)=>{
+          return res.Doctor_name?.toLocaleLowerCase().match(this.firstname?.toLocaleLowerCase());
+
+        });
+    }
+  }
    create_doctors(){
     try{
       this.ds.processData('adddoctors', {
@@ -142,7 +154,7 @@ export class Page2Component implements OnInit {
            }
           
      }
-      delete_clients(Doctor_id){
+     delete_doctors(Doctor_id){
         swalWithBootstrapButtons.fire({
           title: 'Are you sure?',
           text: "You won't be able to revert this!",
@@ -150,7 +162,7 @@ export class Page2Component implements OnInit {
           showCancelButton: true,
           confirmButtonText: 'Yes, delete it!',
           cancelButtonText: 'No, cancel!',
-          reverseButtons: true
+          reverseButtons: false
         }).then((result) => {
           if (result.isConfirmed) {
   

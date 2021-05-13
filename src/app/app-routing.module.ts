@@ -33,7 +33,7 @@ const routes: Routes = [
       
      {
       path: 'tabs', component: TabsComponent,
-      canActivate: [AuthGuard],
+      // canActivate: [AuthGuard],
       children:[
         { path: 'page1', component: Page1Component},
         { path: 'page2', component: Page2Component},

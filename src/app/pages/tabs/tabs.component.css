@@ -10,6 +10,7 @@ nav{
 .page-content-container {
     order: 1;
     margin: 10px auto;
+    margin-top: 100px;
 
 }
 
@@ -25,10 +26,10 @@ nav{
 }
 
 .header {
-    position: -webkit-sticky;
-    position: sticky;
+    /* position: -webkit-sticky;
+    position: sticky; */
     top: 0;
-    z-index: 1;
+    z-index: -1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -63,7 +64,7 @@ a:focus {
 
 .footer {
     bottom: 0px;
-    right: 0;
+    left: 0;
     position: fixed;
     font-size: 12px;
     color: rgba(7, 7, 7, 0.85);
@@ -72,16 +73,19 @@ a:focus {
 #sidebar {
     position: fixed;
     height: 1500px;
-    right:0;  
-    margin-top: 0;
+    left:0;  
+    margin-top: 70px;
     background-color: #133b5c;
     color: #fcfcfc;
 }
-
+#sidebar a{
+    text-decoration: none;
+    display: block;
+}
 .btn {
     margin-left: 5px;
     width: 180px;
-    padding: 15px;
+    padding: 10px;
 }
 
 

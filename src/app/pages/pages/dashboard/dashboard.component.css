@@ -40,7 +40,14 @@ h3 {
     background-color: #f5f5f5;
     padding: 15px;
   } */
-.container-fluid {
+/* .container-fluid {
     position: relative;
     right: 10%;
+} */
+
+#myChart{
+    color: white;
+}
+.card{
+    background-color: white;
 }

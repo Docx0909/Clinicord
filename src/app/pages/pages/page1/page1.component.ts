@@ -127,7 +127,7 @@ export class Page1Component implements OnInit {
           return res.Client_name?.toLocaleLowerCase().match(this.firstname?.toLocaleLowerCase());
 
         });
-    }
+  }
 
 
   }

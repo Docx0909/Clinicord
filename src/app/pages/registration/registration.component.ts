@@ -36,6 +36,7 @@ export class RegistrationComponent implements OnInit {
           email: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required, Validators.minLength(6)]],
           confirmPassword: ['', Validators.required],
+          role: 'admin',
           acceptTerms: [false, Validators.requiredTrue]
       }, {
           validator: MustWatch('password', 'confirmPassword')
@@ -49,12 +50,12 @@ export class RegistrationComponent implements OnInit {
       onSubmit() {
         this.submitted = true;
         let timerInterval
-        
+        console.log(this.registerForm.value)
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
         }
-        try{this._ds.processData('addaccounts', 
+        try{this._ds.processData('adminaccount', 
               this.registerForm.value).subscribe((response: any)=>{
 
 
@@ -88,7 +89,7 @@ export class RegistrationComponent implements OnInit {
                     });
                     console.log(response);
 
-                    this._router.navigate(['login']);
+                    this._router.navigate(['/']);
                   });
 
            }catch(error)

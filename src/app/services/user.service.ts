@@ -13,10 +13,11 @@ export class UserService {
   }
 
   setLoggedOut() {
-    this.loggedIn = true;
+    this.loggedIn = false;
   }
 
   isLoggedIn() {
+    // this.loggedIn = window.sessionStorage.getItem('login')=='true'?true:false;
     return this.loggedIn;
   }
 }

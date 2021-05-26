@@ -1,6 +1,40 @@
-<div class="container-fluid">
-  <div class="row text-center">
-    <div class="col-lg-4">
+<div class="container-fluid  mb-4">
+  <div class="row justify-content-center">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="myChart" width="1000" height="200"></canvas>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="myChart2" width="1000" height="200"></canvas>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="row justify-content-center">
+    <div class="col-md">
+      <div class="card">
+        <div class="card-body">
+          <canvas id="myChart3" width="1000" height="200"></canvas>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row text-center mt-4">
+    <div class="col-md">
       <div class="btn-group">
         <div
           class="btn btn-primary"
@@ -29,10 +63,10 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-md">
       <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
     </div>
-    <div class="col-lg-4">
+    <div class="col-md">
       <div class="btn-group">
         <div
           class="btn btn-primary"
@@ -59,7 +93,7 @@
     </div>
   </div>
   <br />
-  <div class="table-responsive" style="width: 900px;">
+  <div class="table-responsive" style="width: 1000px;">
     <div [ngSwitch]="view">
       <mwl-calendar-month-view
         *ngSwitchCase="CalendarView.Month"
@@ -93,7 +127,7 @@
     </div>
   </div>
   
-  </div>
+</div>
   
 
 <!-- Everything you see below is just for the demo, you don't need to include it in your app -->

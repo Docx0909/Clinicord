@@ -18,6 +18,7 @@
             <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Specialization</th>
+            <th scope="col">Email Address</th>
             <th scope="col">Contact</th>
             <th scope="col">Date Created</th>
             <th scope="col">Last Updated</th>
@@ -28,10 +29,11 @@
                     <!-- <td hidden>{{ doctor.Doctor_id }}</td> -->
                     <!-- <td>{{ i + 1 }}</td> -->
                     <td>
-                        <img src="http://192.168.1.59/Clinicord/cs-api/images/{{doctor.User_image}}" alt="" style="width: 50px;height: 50px;">
+                        <img src="http://192.168.1.59/Clinicord/cs-api/images/{{doctor.User_image}}" alt="" style="width: 80px;height: 80px;">
                     </td>
                     <td>{{ doctor.Doctor_name }}</td>
                     <td>{{ doctor.Doctor_specialty}}</td>
+                    <td>{{ doctor.User_email}}</td>
                     <td>{{ doctor.Doctor_phone }}</td>
                     <td>{{ doctor.createdOn }}</td>
                     <td>{{ doctor.UpdatedOn }}</td>

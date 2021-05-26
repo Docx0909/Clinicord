@@ -26,6 +26,7 @@ import { Page2Component} from './pages/pages/page2/page2.component';
 import { Page3Component} from './pages/pages/page3/page3.component';
 import { Page4Component } from './pages/pages/page4/page4.component';
 import {DashboardComponent} from './../app/pages/pages/dashboard/dashboard.component';
+import { AccountsComponent } from './pages/pages/accounts/accounts.component';
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -46,9 +47,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     Page2Component,
     Page3Component,
     DashboardComponent,
-    Page4Component    
-    
-
+    Page4Component,
+    AccountsComponent    
  
   ],
   imports: [

@@ -153,21 +153,21 @@ export class Page4Component implements OnInit {
         //   text: this.report.otherDetails
         // },
         {
-          text: 'Signature',
+          text: 'Signature Over Printed Name',
           style: 'sign'
         },
         {
           columns : [
               { qr: this.report.name + ', Contact No : ' + this.report.contactNo, fit : 100 },
               {
-              text: `(${this.report.name})`,
+              text: ``,
               alignment: 'right',
               }
           ]
         }
       ],
       info: {
-        title: this.report.name + ' Health Report',
+        title: ' Health Report',
         author: this.report.name,
         subject: 'Health Report',
         keywords: 'Health Report, ONLINE Health Report',

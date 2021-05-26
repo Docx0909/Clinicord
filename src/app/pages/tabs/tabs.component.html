@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg py-1  sticky-top">
+<nav class="navbar navbar-expand-lg py-1 fixed-top">
     <a class="navbar-brand text-light"  [routerLink]="" (click)="homepage()">
         <h1><img class="logo" src="assets/logo.png"> {{ title }}</h1>
     </a>
@@ -28,26 +28,29 @@
     </div>
 </div> -->
 <div class="page-container d-flex justify-content-around" >
-    <div class="page-content-container">
+    <div class="page-content-container mr-4">
         <router-outlet></router-outlet>
     </div>
  <!-- *ngIf="_user.isLoggedIn()" -->
-    <div class="list-items" >
+    <div class="list-items "  >
         <ul class="nav flex-column" id="sidebar">
             <li class="nav-item">
                 <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/dashboard"><i class="material-icons ">dashboard</i> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page1"><i class="material-icons ">person_add</i> Clients</a>
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/accounts"><i class="material-icons ">account_circle</i> Accounts</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page2"><i class="material-icons ">contacts</i> Doctors</a>
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/clients"><i class="material-icons ">person_add</i> Clients</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page3"><i class="material-icons ">note_add</i> Appointments</a>
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/doctors"><i class="material-icons ">contacts</i> Doctors</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/page4"><i class="material-icons ">library_books</i> Reports</a>
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/appointments"><i class="material-icons ">event_available</i> Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/reports"><i class="material-icons ">library_books</i> Reports</a>
             </li>
             <li class="nav-item">
                 <div class="dropdown" ngbDropdown>

@@ -11,7 +11,6 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   styleUrls: ['./page4.component.css']
 })
 export class Page4Component implements OnInit {
-  statement: string = "A medical statement is a formal and legal statement which contains medical records. All medical records are held confidential, in fact, physicians are not allowed for any release of these since these records are private and personal. A medical statement is often used and required when there are activities which have possible potential risks."
   id: any;
   report = new Report();
   healthprofiles: any;
@@ -74,29 +73,37 @@ export class Page4Component implements OnInit {
     return {
       content: [
         {
-          text: 'Clinicord Web Generated Health Report',
+          text: 'Medical Record of ' + this.report.name,
           bold: true,
           fontSize: 20,
           alignment: 'center',
           margin: [0, 0, 0, 20]
         },
+        // {
+        //   text: "Clinic Address Sample",
+        //   bold: true,
+        //   fontSize: 15,
+        //   alignment: 'center',
+        //   italics: true,
+        //   margin: [0, 0, 0, 20]
+        // },
         {
           columns: [
-            [{
-              text: this.report.name,
-              style: 'name'
+            [//{
+            //   text: this.report.name,
+            //   style: 'name'
+            // },
+            {
+              text: 'Email: ' + this.report.email,
             },
             {
-              text: this.report.address
+              text: 'Address: ' + this.report.address
             },
             {
-              text: 'Email : ' + this.report.email,
+              text: 'Contact No: ' + this.report.contactNo,
             },
             {
-              text: 'Contant No : ' + this.report.contactNo,
-            },
-            {
-              text: 'Appointment Date : ' + this.report.appointmentdate,
+              text: 'Appointment Date: ' + this.report.appointmentdate,
             },
             ],
             [
@@ -142,8 +149,28 @@ export class Page4Component implements OnInit {
           style: 'header'
         },
         {
-          text: this.report.healthDetails = this.statement
+          text: this.report.healthDetails
         },
+        {
+          text: 'Attending Physician:',
+          alignment: 'left',
+          style: 'header3'
+        },
+        {
+          text: this.report.doctorName + ', M.D',
+          alignment: 'left',
+          style: 'doctorName'
+        },
+        {
+          text: 'Diagnosis:',
+          style: 'header2',
+          alignment: 'right'
+        },
+        {
+          text: this.report.diagnosisDetails,
+          alignment: 'right'
+        },
+        
         // {
         //   text: 'Other Details',
         //   style: 'header'
@@ -151,22 +178,25 @@ export class Page4Component implements OnInit {
         // {
         //   text: this.report.otherDetails
         // },
-        {
-          text: 'Signature',
-          style: 'sign'
-        },
-        {
-          columns : [
-              { qr: this.report.name + ', Contact No : ' + this.report.contactNo, fit : 100 },
-              {
-              text: `(${this.report.name})`,
-              alignment: 'right',
-              }
-          ]
-        }
+        // {
+        //   text: 'Signature',
+        //   style: 'sign'
+        // },
+        // {
+        //   text: `(${this.report.name})`,
+        //   alignment: 'right',
+        // },
+        // {
+        //   columns : [
+        //       { qr: this.report.name + ', Contact No : ' + this.report.contactNo, fit : 100 },
+        //       {
+        //       
+        //       }
+        //   ]
+        // }
       ],
       info: {
-        title: this.report.name + ' Health Report',
+        title: 'Health Report of ' + this.report.name,
         author: this.report.name,
         subject: 'Health Report',
         keywords: 'Health Report, ONLINE Health Report',
@@ -177,6 +207,22 @@ export class Page4Component implements OnInit {
             bold: true,
             margin: [0, 20, 0, 10],
             decoration: 'underline'
+          },
+          header2: {
+            fontSize: 12,
+            bold: true,
+            margin: [0, 20, 0, 5],
+          },
+          header3: {
+            fontSize: 12,
+            bold: true,
+            italics: true,
+            margin: [0, 20, 0, 8],
+          },
+          doctorName: {
+            fontSize: 12,
+            bold: false,
+            italics: true,
           },
           name: {
             fontSize: 16,

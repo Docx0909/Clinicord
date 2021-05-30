@@ -14,6 +14,8 @@ export class Page4Component implements OnInit {
   id: any;
   report = new Report();
   healthprofiles: any;
+  doctors: any;
+
   // degrees = ['B.E.', 'M.E.', 'B.Com', 'M.Com'];
   constructor( private ds: DataService) {
     this.report = JSON.parse(sessionStorage.getItem('report')) || new Report();
@@ -33,6 +35,7 @@ export class Page4Component implements OnInit {
 
   ngOnInit(): void {
     this.get_healthprofile();
+    this.get_doctors();
   }
 
   get_healthprofile(){
@@ -44,6 +47,13 @@ export class Page4Component implements OnInit {
 
    getvalue(healthprofiles){
 
+   }
+  
+   get_doctors(){
+    this.ds.processData('getdoctors', null).subscribe((res: any)=>{
+      this.doctors = res.data;
+      console.log(this.doctors);
+    });   
    }
 
   // addExperience() {
@@ -77,16 +87,16 @@ export class Page4Component implements OnInit {
           bold: true,
           fontSize: 20,
           alignment: 'center',
+          decoration: 'underline',
+        },
+        {
+          text: this.report.doctorAddress,
+          bold: true,
+          fontSize: 15,
+          alignment: 'center',
+          italics: true,
           margin: [0, 0, 0, 20]
         },
-        // {
-        //   text: "Clinic Address Sample",
-        //   bold: true,
-        //   fontSize: 15,
-        //   alignment: 'center',
-        //   italics: true,
-        //   margin: [0, 0, 0, 20]
-        // },
         {
           columns: [
             [//{
@@ -96,14 +106,14 @@ export class Page4Component implements OnInit {
             {
               text: 'Email: ' + this.report.email,
             },
-            {
-              text: 'Address: ' + this.report.address
-            },
+            // {
+            //   text: 'Address: ' + this.report.address
+            // },
             {
               text: 'Contact No: ' + this.report.contactNo,
             },
             {
-              text: 'Appointment Date: ' + this.report.appointmentdate,
+              text: 'Diagnosis Date: ' + this.report.appointmentdate,
             },
             ],
             [
@@ -144,6 +154,13 @@ export class Page4Component implements OnInit {
         //   style: 'header'
         // },
         // this.getEducationObject(this.report.educations),
+        {
+          text: 'Prescription Details',
+          style: 'header'
+        },
+        {
+          text: this.report.prescriptionDetails
+        },
         {
           text: 'Health Details',
           style: 'header'
@@ -196,16 +213,22 @@ export class Page4Component implements OnInit {
         // }
       ],
       info: {
-        title: 'Health Report of ' + this.report.name,
+        title: 'Medical Report of ' + this.report.name,
         author: this.report.name,
         subject: 'Health Report',
         keywords: 'Health Report, ONLINE Health Report',
       },
         styles: {
           header: {
-            fontSize: 18,
+            fontSize: 16,
             bold: true,
-            margin: [0, 20, 0, 10],
+            margin: [0, 20, 0, 5],
+            decoration: 'underline'
+          },
+          headerSub: {
+            fontSize: 12,
+            bold: true,
+            italics: true,
             decoration: 'underline'
           },
           header2: {
@@ -217,7 +240,7 @@ export class Page4Component implements OnInit {
             fontSize: 12,
             bold: true,
             italics: true,
-            margin: [0, 20, 0, 8],
+            margin: [0, 20, 0, 5],
           },
           doctorName: {
             fontSize: 12,

@@ -12,7 +12,7 @@
                 <i class="material-icons">
                   account_circle
                 </i>
-                Personal Details</h4>
+                Patient Details</h4>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -22,27 +22,29 @@
                     <!-- <input type="text" class="form-control" [(ngModel)]="report.name" name="name" placeholder="Name"
                       #Name="ngModel" required
                       [ngClass]="{'is-invalid': Name.invalid && (Name.touched || reportForm.submitted) }"> -->
+
                   </div>
                   <div class="form-group">
                     <select class="form-control"  name="doctorname" [(ngModel)]="report.doctorName" name="doctorName" placeholder="Doctor Name">
-                        <option [Value]="healthprofile"  *ngFor="let healthprofile of healthprofiles">{{healthprofile.Doctor_name}}</option>
+                        <option [Value]="doctor"  *ngFor="let doctor of doctors">{{doctor.Doctor_name}}</option>
+                    </select>    
+                  </div>
+
+                  <div class="form-group">
+                    <select class="form-control"  name="doctorAddress" [(ngModel)]="report.doctorAddress" name="doctorAddress" placeholder="Doctor Address">
+                        <option [Value]="doctor"  *ngFor="let doctor of doctors">{{doctor.Doctor_address}}</option>
                     </select>    
                   </div>
 
                   <!-- <div class="form-group">
-                    <select class="form-control"  name="doctorAddress" [(ngModel)]="report.doctorAddress" name="doctorAddress" placeholder="Doctor Address">
-                        <option [Value]="healthprofile"  *ngFor="let doctor of doctors">{{healthprofile.Doctor_address}}</option>
-                    </select>    
-                  </div> -->
-
-                  <div class="form-group">
                     <div class="form-group">
                       <textarea class="form-control" [(ngModel)]="report.address" name="address" rows="3"
                         placeholder="Address" #Address="ngModel" required
                         [ngClass]="{'is-invalid': Address.invalid && (Address.touched || reportForm.submitted) }"></textarea>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
+
                 <div class="col-md-6">
                   <div class="form-group">
                     <input type="text" class="form-control" [(ngModel)]="report.contactNo" name="contactNo"
@@ -54,6 +56,7 @@
                       placeholder="Email ID" #Email="ngModel" required
                       [ngClass]="{'is-invalid': Email.invalid && (Email.touched || reportForm.submitted) }">
                   </div>
+                  
                     <div class="form-group">
                         <!-- <select class="form-control"  name="fullname"[(ngModel)]="report.appointmentdate" name="appointmentdate" placeholder="appointmentdate">
                             <option [Value]="healthprofile">{{healthprofile.ap_date}}</option>
@@ -61,6 +64,23 @@
                     <input type="date" class="form-control" [(ngModel)]="report.appointmentdate" name="appointmentdate"
                      #appointmentdate="ngModel" required
                       [ngClass]="{'is-invalid': appointmentdate.invalid && (appointmentdate.touched || reportForm.submitted) }" >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="shadow-sm card">
+            <div class="card-body">
+              <h4 class="card-title d-flex align-items-center">
+                <i class="material-icons">
+                    medication
+                  </i>Prescription</h4>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <textarea type="text" class="form-control" [(ngModel)]="report.prescriptionDetails" name="prescriptionDetails"
+                      rows="4" required  #prescriptionDetails="ngModel"  >
+                    </textarea>
                   </div>
                 </div>
               </div>

@@ -18,4 +18,8 @@ export class DataService {
   processData(endpoint, data){
     return this.http.post(this.url + endpoint, JSON.stringify(data));
   }
+
+  formData(endpoint, data){
+    return this.http.post(this.url + endpoint, data);
+  }
 }

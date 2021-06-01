@@ -55,20 +55,11 @@ const colors: any = {
 })
 export class DashboardComponent implements OnInit {
   mySubscription: Subscription;
-  calendarOptions: CalendarOptions;
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
   accounts: any;
   status: string;
   verified: string;
   isDeleted: string;
   appointment: any;
-  newDate: Date = new Date();
-  viewDate: Date = new Date();
-  modalData: {
-    action: string;
-    event: CalendarEvent;
-  };
 
   ngOnInit() {
     this.apAnalytics();
@@ -88,50 +79,21 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
-
-
-
-  actions: CalendarEventAction[] = [
-    {
-      label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-      a11yLabel: 'Edit',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.handleEvent('Edited', event);
-      },
-    },
-    {
-      label: '<i class="fas fa-fw fa-trash-alt"></i>',
-      a11yLabel: 'Delete',
-      onClick: ({ event }: { event: CalendarEvent }): void => {
-        this.events = this.events.filter((iEvent) => iEvent !== event);
-        this.handleEvent('Deleted', event);
-      },
-    },
-  ];
-
-  refresh: Subject<any> = new Subject();
-
-
-
 
   async ap_status() {
     this.ds.processData('getdashboard', null).subscribe((res: any) => {
 
-      let canceled = 0;
+      let cancelled = 0;
       let approved = 0;
       let pending = 0;
       let finished = 0;
       for (let i = 0; i < res.data.length; i++) {
         this.status = res.data[i]['ap_status'];
         this.isDeleted = res.data[i]['IsDeleted'];
-        this.newDate = new Date(this.appointment);
-        // console.log(this.isDeleted);
 
-        if (this.isDeleted == 'T') {
-          canceled += 1;
-          // console.log(canceled);
+        if (this.status == 'Cancelled') {
+          cancelled += 1;
+          // console.log(cancelled);
         }
         if (this.status == 'Approved') {
           approved += 1;
@@ -148,7 +110,7 @@ export class DashboardComponent implements OnInit {
       this.storage.setItem('approved', stringify(approved));
       this.storage.setItem('pending', stringify(pending));
       this.storage.setItem('finished', stringify(finished));
-      this.storage.setItem('canceled', stringify(canceled));
+      this.storage.setItem('cancelled', stringify(cancelled));
 
 
     });
@@ -161,7 +123,7 @@ export class DashboardComponent implements OnInit {
       for (let i = 0; i < res.data.length; i++) {
         this.accounts = res.data[i]['User_role'];
 
-        console.log(this.accounts);
+        // console.log(this.accounts);
         if (this.accounts == '1') {
           doctor += 1;
           // console.log(doctor);
@@ -183,7 +145,7 @@ export class DashboardComponent implements OnInit {
       let unverified = 0;
       for (let i = 0; i < res.data.length; i++) {
         this.verified = res.data[i]['isVerified'];
-        console.log(this.verified);
+        // console.log(this.verified);
 
         if (this.verified == 'T') {
           verify += 1;
@@ -206,26 +168,26 @@ export class DashboardComponent implements OnInit {
     var myChart = new Chart('myChart', {
       type: 'bar',
       data: {
-        labels: ['Finished', 'Approved', 'Pending', 'Canceled'],
+        labels: ['Finished', 'Approved', 'Pending', 'Cancelled'],
         datasets: [{
           label: 'Appointments Status Analytics',
           data: [
             this.storage.getItem('finished'),
             this.storage.getItem('approved'),
             this.storage.getItem('pending'),
-            this.storage.getItem('canceled')
+            this.storage.getItem('cancelled')
           ],
           backgroundColor: [
             'rgba(43, 46, 74, .7)',
             'rgba(63, 191, 63, .7)',
             'rgba(161, 191, 63, .7)',
-            'rgba(255, 206, 86, .7)',
+            'rgba(255, 74, 71, .7)',
           ],
           borderColor: [
             'rgba(43, 46, 74, 0.8)',
             'rgba(63, 191, 63, .7)',
             'rgba(161, 191, 63, .7)',
-            'rgba(255, 206, 86, .7)',
+            'rgba(255, 74, 71, .7)',
           ],
           barPercentage: .5
         }]
@@ -309,116 +271,8 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  events: CalendarEvent[] =
-    [
-
-      {
-        start: new Date(this.newDate),
-        // end: addDays(new Date(), 3),
-        title: '',
-        // color: colors.blue,
-        // actions: this.actions,
-        allDay: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-        draggable: true,
-      },
-      // {
-      //   start: startOfDay(this.newDate),
-      //   title: 'An event with no end date',
-      //   color: colors.yellow,
-      //   actions: this.actions,
-      // },
-      // {
-      //   start: subDays(endOfMonth(new Date()), 3),
-      //   end: addDays(endOfMonth(new Date()), 3),
-      //   title: 'A long event that spans 2 months',
-      //   color: colors.blue,
-      //   allDay: true,
-      // },
-      // {
-      //   start: addHours(startOfDay(new Date()), 2),
-      //   end: addHours(new Date(), 2),
-      //   title: 'A draggable and resizable event',
-      //   color: colors.yellow,
-      //   actions: this.actions,
-      //   resizable: {
-      //     beforeStart: true,
-      //     afterEnd: true,
-      //   },
-      //   draggable: true,
-      // },
-    ];
-
-  activeDayIsOpen: boolean = true;
+  
 
 
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
-    }
-  }
-
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
 }

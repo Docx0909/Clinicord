@@ -57,8 +57,8 @@
                     <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton" ngbDropdownToggle>
                     {{this.name}}
                     </button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem><i class="material-icons ">logout</i><a (click)="logoutButton()">Logout</a></button>
+                    <div class="dropdown-menu" ngbDropdownMenu class="text-center">
+                        <button ngbDropdownItem (click)="logoutButton()"><i class="material-icons" color="primary">power_settings_new</i></button>
                     </div>
                 </div>
             </li>

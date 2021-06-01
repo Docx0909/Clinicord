@@ -11,50 +11,73 @@
               <i class="material-icons">
                 account_circle
               </i>
-              Personal Details</h4>
+              Appointment Details</h4>
             <div class="row" >
               <div class="col-md-6">
                 <div class="form-group">
-                  <select class="form-control"  name="fullname" [(ngModel)]="report.name" name="name" placeholder="Name">
-                      <option  *ngFor="let healthprofile of healthprofiles" [Value]="healthprofile">{{healthprofile.Client_name}}</option>
+                  <label class="h6" for="">Doctor Name</label>
+                  <select class="form-control" #selectElem name="doctorname" (change)=showclient(selectElem.value)  required>
+                    <option value="" >Select Doctor</option>
+                    <option [value]="doctor.U_id" *ngFor="let doctor of doctors">{{doctor.Doctor_name}}</option>
                   </select>    
-                  <!-- <input type="text" class="form-control" [(ngModel)]="report.name" name="name" placeholder="Name"
-                    #Name="ngModel" required
-                    [ngClass]="{'is-invalid': Name.invalid && (Name.touched || reportForm.submitted) }"> -->
                 </div>
+
                 <div class="form-group">
-                  <div class="form-group">
-                    <textarea class="form-control" [(ngModel)]="report.address" name="address" rows="3"
-                      placeholder="Address" #Address="ngModel" required
-                      [ngClass]="{'is-invalid': Address.invalid && (Address.touched || reportForm.submitted) }"></textarea>
-                  </div>
+                  <label class="h6" for="">Doctor Email</label>
+                  <input class="form-control" [(ngModel)]="report.email" name="emailId" placeholder="Doctor Email" readonly>
                 </div>
+          
+                <div class="form-group">
+                  <label class="h6" for="">Client Name</label>
+                  <select class="form-control"  #clientname name="fullname"  (change)="getappointmentclient(clientname.value)" required>
+                    <option value="" >Select Client</option>
+                      <option [value]="clientname.U_id" *ngFor="let clientname of clientnames" >{{clientname.Client_name}}</option>
+                  </select>    
+                </div> 
+                <div class="form-group">
+                  <label class="h6" for="">Time of Appointment</label>
+                  <input class="form-control"  [(ngModel)]="report.appointmenttime" name="appointmenttime" placeholder="Appointment Time" readonly>
+                </div>   
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <input type="text" class="form-control" [(ngModel)]="report.contactNo" name="contactNo"
-                    placeholder="Contact No." #ContactNo="ngModel" required
-                    [ngClass]="{'is-invalid': ContactNo.invalid && (ContactNo.touched || reportForm.submitted) }">
+                    <label class="h6" for="">Doctor Contact #</label>
+                    <input class="form-control"  [(ngModel)]="report.contactNo" name="contactNo" placeholder="Doctor Contact No." readonly>
                 </div>
                 <div class="form-group">
-                  <input type="text" class="form-control" [(ngModel)]="report.email" name="emailId"
-                    placeholder="Email ID" #Email="ngModel" required
-                    [ngClass]="{'is-invalid': Email.invalid && (Email.touched || reportForm.submitted) }">
+                    <label class="h6" for="">Address of Clinic/Hospital</label>
+                    <input class="form-control"  name="doctorAddress" [(ngModel)]="report.doctorAddress" name="doctorAddress" placeholder="Doctor Address" readonly >
+
                 </div>
                   <div class="form-group">
-                      <!-- <select class="form-control"  name="fullname"[(ngModel)]="report.appointmentdate" name="appointmentdate" placeholder="appointmentdate">
-                          <option [Value]="healthprofile">{{healthprofile.ap_date}}</option>
-                      </select>     -->
-
-
-                  <input type="date" class="form-control" [(ngModel)]="report.appointmentdate" name="appointmentdate"
-                   #appointmentdate="ngModel" required
-                    [ngClass]="{'is-invalid': appointmentdate.invalid && (appointmentdate.touched || reportForm.submitted) }" >
+                      <label class="h6" for="">Date of Appointment</label>
+                  <select class="form-control" #appointmentdate name="appointmentdate" (change)="getappointmentdate(appointmentdate.value)" placeholder="Appointment Date">
+                    <option value="" >Select Date</option>
+                    <option  *ngFor="let appointmentdate of appointmentdates" [value]="appointmentdate.ap_date">{{appointmentdate.ap_date}}</option>
+                </select>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        
+        <div class="shadow-sm card">
+          <div class="card-body">
+            <h4 class="card-title d-flex align-items-center">
+              <i class="material-icons">
+                  medication
+                </i>Prescription</h4>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <textarea type="text" class="form-control" [(ngModel)]="report.prescriptionDetails" name="prescriptionDetails"
+                    rows="4" required  #prescriptionDetails="ngModel"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="shadow-sm card">
           <div class="card-body">
             <h4 class="card-title d-flex align-items-center">
@@ -65,135 +88,30 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <textarea type="text" class="form-control" [(ngModel)]="report.healthDetails" name="healthDetails"
-                    rows="4" required  #healthDetails="ngModel"  >
-                  </textarea>
+                    rows="4" required  #healthDetails="ngModel"></textarea>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Skills -->
-        <!-- <div class="shadow-sm card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between card-title">
-              <h4 class="d-flex align-items-center">
-                <i class="material-icons">
-                  timeline
-                </i>
-                Skills</h4>
-              <button class="btn btn-primary" (click)="addSkill()">+</button>
-            </div>
-            <div class="row">
-              <div class="col-md-4" *ngFor="let s of report.skills; let i=index">
-                <div class="form-group">
-                  <input type="text" class="form-control" name="skill{{i}}" [(ngModel)]="s.value"
-                    placeholder="e.g. Java / Angular / .Net " #Skill="ngModel" required
-                    [ngClass]="{'is-invalid': Skill.invalid && (Skill.touched || reportForm.submitted) }">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!-- Experience -->
-        <!-- <div class="shadow-sm card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between card-title">
-              <h4 class="d-flex align-items-center">
-                <i class="material-icons">
-                  timeline
-                </i>
-                Experience</h4>
-              <button class="btn btn-primary" (click)="addExperience()">+</button>
-            </div>
-            <div class="row" *ngFor="let ex of report.experiences; let i=index">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" name="employer{{i}}" [(ngModel)]="ex.employer"
-                    placeholder="Employer" #Employer="ngModel" required
-                    [ngClass]="{'is-invalid': Employer.invalid && (Employer.touched || reportForm.submitted) }">
-                </div>
-                <div class="form-group">
-                  <div class="form-group">
-                    <textarea class="form-control" name="jobDescription{{i}}" [(ngModel)]="ex.jobDescription" rows="3"
-                      placeholder="Job Description"></textarea>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <input type="text" class="form-control" name="jobTitle{{i}}" [(ngModel)]="ex.jobTitle"
-                    placeholder="Job Title" #JobTitle="ngModel" required
-                    [ngClass]="{'is-invalid': JobTitle.invalid && (JobTitle.touched || reportForm.submitted) }">
-                </div>
-                <div class="form-group">
-                  <input type="number" class="form-control" name="exInMonths{{i}}" [(ngModel)]="ex.experience"
-                    placeholder="Experience in months" #Experience="ngModel" required
-                    [ngClass]="{'is-invalid': Experience.invalid && (Experience.touched || reportForm.submitted) }">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!-- Education -->
-        <!-- <div class="shadow-sm card">
-          <div class="card-body">
-            <div class="d-flex justify-content-between card-title">
-              <h4 class="d-flex align-items-center">
-                <i class="material-icons">
-                  school
-                </i>
-                Education</h4>
-              <button class="btn btn-primary" (click)="addEducation()">+</button>
-            </div>
-            <div class="row" *ngFor="let ed of report.educations; let i=index">
-              <div class="col-md-3">
-                <div class="form-group">
-                  <select class="form-control" placeholder="Degree" name="degree{{i}}" [(ngModel)]="ed.degree"
-                    #Degree="ngModel" required
-                    [ngClass]="{'is-invalid': Degree.invalid && (Degree.touched || reportForm.submitted) }">
-                    <option [value]="d" *ngFor="let d of degrees">{{d}}</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <input type="text" class="form-control" name="college{{i}}" [(ngModel)]="ed.college"
-                    placeholder="School/College" #College="ngModel" required
-                    [ngClass]="{'is-invalid': College.invalid && (College.touched || reportForm.submitted) }">
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <input type="number" class="form-control" name="passingYear{{i}}" [(ngModel)]="ed.passingYear"
-                    placeholder="Passing Year" #PassingYear="ngModel" required
-                    [ngClass]="{'is-invalid': PassingYear.invalid && (PassingYear.touched || reportForm.submitted) }">
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="form-group">
-                  <input type="number" class="form-control" name="result{{i}}" [(ngModel)]="ed.percentage"
-                    placeholder="Percentage" #Percentage="ngModel" required
-                    [ngClass]="{'is-invalid': Percentage.invalid && (Percentage.touched || reportForm.submitted) }">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-        <!-- Other Details -->
-        <!-- <div class="shadow-sm card">
+
+        <div class="shadow-sm card">
           <div class="card-body">
             <h4 class="card-title d-flex align-items-center">
-              <i class="material-icons"> list </i>Other Details</h4>
+              <i class="material-icons">
+                  medication
+                </i>Diagnosis Details</h4>
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <textarea type="text" class="form-control" [(ngModel)]="report.otherDetails" name="otherDetails"
-                    rows="4"></textarea>
+                  <input type="text" class="form-control" [(ngModel)]="report.diagnosisDetails" name="diagnosisDetails"
+                    rows="4" required  #diagnosisDetails="ngModel"  >
                 </div>
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
+  
       </div>
       <div class="col-md-4">
         <div class="shadow-sm card action-buttons">
@@ -223,8 +141,23 @@
             <label class="h4 mb-3" for="">Show your picture in report</label>
             <input type="file" class="form-control-file" (change)="fileChanged($event)" aria-describedby="fileHelpId">
           </div>
-          <img *ngIf="report.profilePic" [src]="report.profilePic" class="img-thumbnail">
+          <img *ngIf="report.profilePic" [src]="report.profilePic" class="img-thumbnail" style="width: 200px;height: 200px;">
         </div>
+        <form [formGroup]="sendfile"  (ngSubmit)="submitPdf(sendfile.value)" >
+          <div class="card p-4">
+            <div class="form-group">
+              <label class="h4 mb-3" for="">Send To</label>
+              <input  class="form-control"   formControlName="email" [(ngModel)]="sendto" name="senderemail" readonly >
+              <label class="h4 mb-3" for="">Upload Report</label>
+              <input type="file"  formControlName="reportfile" (change)="onFileChange($event)" accept=".doc,.docx, .pdf" class="form-control-file" name="report">
+              <button type='submit'
+              class="btn btn-primary d-flex align-items-center justify-content-center mt-3">
+              <i class="material-icons">
+                email
+              </i><span>Send Report</span></button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </form>

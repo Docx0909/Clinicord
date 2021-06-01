@@ -3,13 +3,6 @@
         My Accounts
     </h2>
     <nav class="navbar navbar-light bg-light d-flex justify-content-between ">
-        <div class="form-group">
-            <label for="gender">Gender</label>
-            <select id="gender" class="form-control" name="gender" [(ngModel)]="gender">
-                        <option value="M">Male</option>
-                        <option value="F">Female</option>
-                        </select>
-        </div>
         <form class="form-inline">
             <input type="text" class="form-control " name="firstname" [(ngModel)]="firstname" (ngModelChange)="search()" placeholder="Search by name">
         </form>
@@ -19,6 +12,8 @@
         <table class="table ">
             <!-- <th scope="col">#</th> -->
             <th scope="col">Image</th>
+            <th scope="col">License</th>
+            <th scope="col">User Type</th>
             <th scope="col">Name</th>
             <th scope="col">Email Address</th>
             <th scope="col">Date Created</th>
@@ -32,6 +27,11 @@
                     <td>
                         <img src="http://192.168.1.59/Clinicord/cs-api/images/{{account.User_image}}" alt="" style="width: 80px;height: 80px;">
                     </td>
+                    <td *ngIf="account.Doctor_license != ''">
+                        <img src="http://192.168.1.59/Clinicord/cs-api/license/{{account.Doctor_license}}" alt="" style="width: 80px;height: 80px;">
+                    </td>
+                    <td *ngIf="account.User_role == '1'">Doctor</td>
+                    <td *ngIf="account.User_role == '0'">Client</td>
                     <td>{{ account.Client_name || account.Doctor_name}}</td>
                     <td>{{ account.User_email }}</td>
                     <td>{{ account.createdOn }}</td>

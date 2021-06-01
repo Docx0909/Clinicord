@@ -5,7 +5,12 @@ export class Report {
     contactNo: number;
     email: string;
     appointmentdate: string;
+    appointmenttime: string;
+    createddate: any;
     healthDetails: string;
+    diagnosisDetails: string;
+    prescriptionDetails: string;
     otherDetails: string;
-
+    doctorName: string;
+    doctorAddress: string;
 }

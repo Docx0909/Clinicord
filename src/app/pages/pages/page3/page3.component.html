@@ -1,0 +1,184 @@
+<div class="container-fluid">
+    <h2>
+        My Appointments
+    </h2>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand"> <button class="btn btn-sm btn-outline-primary" (click)="open(content)"><span class="material-icons">
+            person_add
+            </span></button></a>
+        <form class="form-inline">
+            <input type="text" class="form-control mr-sm-2" [(ngModel)]="term" placeholder="Search Here">
+        </form>
+      </nav>
+    <div class="table-responsive ">
+  
+        <table  class="table ">
+             <thead>
+                 <tr>
+                    <th scope="col">Client Name</th>
+                    <th scope="col">Doctor Name</th>
+                    <th scope="col">Specialize</th>
+                    <!-- <th scope="col">Type</th> -->
+                    <th scope="col">Date of Appointment</th>
+                    <th scope="col">Time </th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Created</th>
+                    <th scope="col">Last Updated</th>
+                    <th scope="col">Action</th>
+                 </tr>
+             </thead>
+            <tbody>
+                <tr *ngFor="let appointment of appointments | filter:term | slice: (page-1) * pageSize : page * pageSize; let i = index">
+                    <td>{{ appointment.Client_name }}</td>
+                    <td>{{ appointment.Doctor_name }}</td>
+                    <td>{{ appointment.ap_specialize }}</td>
+                    <!-- <td>{{ appointment.ap_type }}</td> -->
+                    <td>{{ appointment.ap_date }}</td>
+                    <td>{{ appointment.ap_time }}</td>
+                    <td>{{ appointment.ap_status }}</td>
+                    <!-- <td>{{ appointment.ap_description }}</td> -->
+                    <td>{{ appointment.createdOn }}</td>
+                    <td>{{ appointment.UpdatedOn }}</td>
+
+                    <td>
+                        <a mat-raised-button color="primary" (click)="editModal(contentEdit, appointment)"><span class="material-icons">
+                            edit
+                            </span></a>
+                        <a mat-raised-button color="warn" (click)="delete_appointments(appointment.ap_id)"><span class="material-icons">
+                            delete
+                            </span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="appointments.length"></ngb-pagination>
+            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="get_appointments()">
+              <option [ngValue]="2">2 items per page</option>
+              <option [ngValue]="4">4 items per page</option>
+              <option [ngValue]="6">6 items per page</option>
+            </select>
+          </div>
+
+          <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="text-center" id="modal-basic-title">New Appointment Details</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <form (submit)="create_appointments($event)" ngNativeValidate autocomplete="off">
+                    <div class="form-group">
+                        <label for="fullname">Appoint Name </label>
+                        <select class="form-control"  name="fullname" [(ngModel)]="fullname">
+                            <option *ngFor="let client of clients" [Value]="client">{{client.Client_name}}</option>
+                        </select>            
+                    </div>
+                    <div class="form-group ">
+                        <label for="type">Appointment Type</label>
+                        <select id="type" class="form-control " name="type" [(ngModel)]="type">
+                                    <option value="Urgent">Urgent</option>
+                                    <option value="Mild">Mild</option>
+                                    </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="doe">Schedule Date</label>
+                        <div class="input-group">
+                            <input id="Schedule" [(ngModel)]="model" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+                            <div class="input-group-append">
+                              <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <div class="input-group">
+                        <input type="time" id="Schedule" formControlName="time" class="form-control"   >
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="status">Status</label>
+                        <select id="status" class="form-control " name="status" [(ngModel)]="status">
+                                    <option value="Finished">Finished</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Waiting" selected>Waiting</option>
+                                    <option value="Cancelled">Canceled</option>
+                                    <option value="Postponed">Postponed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text"  class="form-control " id="description" name="description" placeholder="Description" [(ngModel)]="description" autocomplete="off" required>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+     <ng-template #contentEdit let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Update Profile</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editForm" (ngSubmit)="edit_appointments()" novalidate>
+                    <div class="form-group">
+                        <label for="fullname">Client Name </label>
+                        <input type="text" class="form-control " id="fullname" formControlName="fullname" placeholder="Fullname" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullname">Practitioner </label>
+                        <input type="text" class="form-control " id="practitioner" formControlName="practitioner" placeholder="practitioner" autocomplete="off" required>
+                    </div>
+                     <div class="form-group ">
+                        <label for="type">Appointment Type</label>
+                        <select id="type" class="form-control " name="type" formControlName="type">
+                                <option value="Urgent">Urgent</option>
+                                <option value="Mild">Mild</option>
+                                </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <div class="input-group">
+                        <input type="date" id="Schedule" formControlName="model" class="form-control"  placeholder="yyyy-mm-dd" name="dp" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <select id="status" class="form-control " d="Schedule" formControlName="time" >
+                            <option value="08:00 AM">08:00 AM</option>
+                            <option value="11:00 AM">11:00 AM</option>
+                            <option value="01:00 PM">01:00 PM</option>
+                            <option value="04:00 PM">04:00 PM</option>
+                </select>
+                        <!-- <div class="input-group">
+                        <input type="time" id="Schedule" formControlName="time" class="form-control"   >
+                        </div> -->
+                    </div>
+                    <div class="form-group ">
+                        <label for="status">Status</label>
+                        <select id="status" class="form-control " name="status" formControlName="status">
+                                    <option value="Finished">Finished</option>
+                                    <option value="Approved">Approved</option>
+                                    <option value="Waiting">Pending</option>
+                                    <option value="Cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                     <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control " id="description" formControlName="description" placeholder="Description" autocomplete="off" required>
+                    </div>
+                    <div class="modal-footer ">
+                        <button type="submit " class="btn btn-outline-dark " >Save</button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+    </div>
+</div>
+

@@ -1,0 +1,229 @@
+<div class="container-fluid" >
+    <h2 class="text-center">
+        My Clients
+    </h2>
+    <nav class="navbar navbar-light bg-light d-flex justify-content-between ">
+        <a class="navbar-brand"> <button class="btn btn-sm btn-outline-primary" (click)="open(content)"><span class="material-icons">
+            person_add
+            </span></button></a>
+        
+        <form class="form-inline">
+            <input type="text" class="form-control mr-sm-2" [(ngModel)]="term"  placeholder="Search Here">
+        </form>
+      </nav>
+    <div class="table-responsive ">
+        
+        <table class="table ">
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Contact #</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Age</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Last Updated</th>
+            <th scope="col">Action</th>
+    
+            <tbody>
+                <tr *ngFor="let client of clients | filter:term | slice: (page-1) * pageSize : page * pageSize; let i = index">
+                    <!-- <td>{{ i + 1 }}</td> -->
+                    <td>
+                        <img src="http://192.168.1.59/Clinicord/cs-api/images/{{client.User_image}}" alt="" style="width: 80px;height: 80px;">
+                    </td>
+                    <td>{{ client.Client_name }}</td>
+                    <td>{{ client.User_email }}</td>
+                    <td>{{ client.Client_phone }}</td>
+                    <td>{{ client.Client_gender }}</td>
+                    <td>{{ client.Client_age }}</td>
+                    <td>{{ client.createdOn }}</td>
+                    <td>{{ client.UpdatedOn }}</td>
+                    <td>
+                        <a class="mat-raised-button" mat-raised-button color="primary" (click)="editModal(contentEdit, client)"><span class="material-icons">
+                            edit
+                            </span></a>
+                        <a class="mat-raised-button" mat-raised-button color="warn" (click)="delete_clients(client.Client_id)"><span class="material-icons">
+                            delete
+                            </span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="clients.length"></ngb-pagination>
+            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="get_clients()">
+              <option [ngValue]="2">2 items per page</option>
+              <option [ngValue]="4">4 items per page</option>
+              <option [ngValue]="6">6 items per page</option>
+            </select>
+          </div>
+
+        <ng-template #content let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Add Client </h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="create_clients($event)" ngNativeValidate autocomplete="disabled">
+                    <div class="form-group ">
+                        <label for="fullname">Full Name </label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Fullname" [(ngModel)]="fullname" autocomplete="disabled" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" class="form-control" name="gender" [(ngModel)]="gender">
+                                    <option value="M">Male</option>
+                                    <option value="F">Female</option>
+                                    </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Age" [(ngModel)]="age" autocomplete="disabled" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address">Address</label>
+                        <input type="text" class="form-control" id="Address" name="Address" placeholder="Address" [(ngModel)]="address" autocomplete="disabled" maxlength="40" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="PhoneNumber">PhoneNumber</label>
+                        <input type="tel" class="form-control" pattern="[0-9]{11}" id="PhoneNumber" name="PhoneNumber" placeholder="PhoneNumber" [(ngModel)]="phoneNumber" autocomplete="disabled" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Client_weight">Client_weight</label>
+                        <input type="text" class="form-control" id="Client_weight" name="Client_weight" placeholder="Client_weight" [(ngModel)]="Client_weight" autocomplete="disabled" required>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+
+        <ng-template #contentEdit let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Update Profile</h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="editForm" Ngvalidate>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group ">
+                                <label for="fullname">Full Name </label>
+                                <input type="text" class="form-control" id="fullname" formControlName="fullname" autocomplete="disabled" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <input id="gender" class="form-control" formControlName="gender" readonly>
+                            </div>
+                        </div>
+        
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="number" class="form-control" id="age" formControlName="age" autocomplete="disabled" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="Address">Address</label>
+                                <input type="text" class="form-control" id="address" formControlName="address" autocomplete="disabled" maxlength="40" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="PhoneNumber">PhoneNumber</label>
+                                <input type="tel" class="form-control" pattern="[0-9]{11}" id="phoneNumber" formControlName="phoneNumber" autocomplete="disabled" required>
+                            </div>
+                        </div>
+        
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="weight">Weight</label>
+                                <input readonly type="text" class="form-control" id="weight" name="weight" formControlName="weight"  placeholder="Client_weight" autocomplete="disabled" required>
+                            </div>
+                        </div>
+                     
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="bloodtype">Blood Type</label>
+                                <input  readonly type="text" class="form-control" id="bloodtype" formControlName="bloodtype" autocomplete="disabled" required>
+                            </div>
+                        </div>
+        
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="healthcondition">Health Condition</label>
+                                <input readonly type="text" class="form-control" id="healthcondition" name="healthcondition" formControlName="healthcondition"  placeholder="healthcondition" autocomplete="disabled" required>
+                            </div>
+                        </div>
+                    </div>
+
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="symptoms">Health Symptoms</label>
+                                    <input  readonly type="text" class="form-control" id="symptoms" formControlName="symptoms" autocomplete="disabled" required>
+                                </div>
+                            </div>
+            
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="medication">Health Medication</label>
+                                    <input  readonly type="text" class="form-control" id="medication" formControlName="medication" autocomplete="disabled" required>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="allergy">Has allergy</label>
+                                        <input  readonly type="text" class="form-control" id="allergy" formControlName="allergy" autocomplete="disabled" required>
+                                    </div>
+                                </div>
+                
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="tobacco">Under medication</label>
+                                        <input  readonly type="text" class="form-control" id="tobacco" formControlName="tobacco" autocomplete="disabled" required>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label for="drug">Illegal Drug Usage</label>
+                                            <input  readonly type="text" class="form-control" id="drug" formControlName="drug" autocomplete="disabled" required>
+                                        </div>
+                                    </div>
+                    
+                                    <div class="col-md">
+                                        <div class="form-group">
+                                            <label for="alcohol">Alcohol Usage</label>
+                                            <input  readonly type="text" class="form-control" id="alcohol" formControlName="alcohol" autocomplete="disabled" required>
+                                        </div>
+                                    </div>
+                            </div>                 
+                    <div class="modal-footer ">
+                        <button type="submit " class="btn btn-outline-dark " (click)="edit_clients()">Update</button>
+                    </div>
+                </form>
+            </div>
+        </ng-template>
+    </div>
+</div>

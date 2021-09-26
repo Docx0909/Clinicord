@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-lg py-1 fixed-top">
+    <a class="navbar-brand text-light"  [routerLink]="" (click)="homepage()">
+        <h1><img class="logo" src="assets/logo.png"> {{ title }}</h1>
+    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto text-light">
+        <li class="nav-item active">
+            <p class="privacy text-light">
+                <a routerLink="/privacy" class="text-light">Privacy and Safety</a>
+            </p>      
+        </li>
+    </ul>
+  </div>
+</nav>
+<!-- <div class="header">
+    <div class="main1">
+        <a [routerLink]="" (click)="homepage()">
+            <h1><img class="logo" src="assets/logo.png"> {{ title }}</h1>
+        </a>
+    </div>
+    <div class="main2" ng-hide="_user.setLoggedOut()">
+        <p class="privacy text-light">
+            <a routerLink="/privacy" class="text-light">Privacy and Safety</a>
+        </p>
+    </div>
+</div> -->
+<div class="page-container d-flex justify-content-around" >
+    <div class="page-content-container mr-4">
+        <router-outlet></router-outlet>
+    </div>
+ <!-- *ngIf="_user.isLoggedIn()" -->
+    <div class="list-items "  >
+        <ul class="nav flex-column" id="sidebar">
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/dashboard"><i class="material-icons ">dashboard</i> Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/accounts"><i class="material-icons ">account_circle</i> Accounts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/clients"><i class="material-icons ">person_add</i> Clients</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/doctors"><i class="material-icons ">contacts</i> Doctors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/appointments"><i class="material-icons ">event_available</i> Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link list-item text-light" routerLinkActive="selected " routerLink="/tabs/reports"><i class="material-icons ">library_books</i> Reports</a>
+            </li>
+            <li class="nav-item">
+                <div class="dropdown" ngbDropdown>
+                    <button class="btn dropdown-toggle text-light" type="button" id="dropdownMenuButton" ngbDropdownToggle>
+                    {{this.name}}
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu class="text-center">
+                        <button ngbDropdownItem (click)="logoutButton()"><i class="material-icons" color="primary">power_settings_new</i></button>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="footer ">
+        <label class="pull-left ">&copy; Clinicord 2020 (3Discovery) </label>
+    </div>
+</div>

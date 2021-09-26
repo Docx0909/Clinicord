@@ -1,0 +1,67 @@
+<div class="container-fluid" >
+    <h2 class="text-center">
+        My Accounts
+    </h2>
+    <nav class="navbar navbar-light bg-light d-flex justify-content-between ">
+        <form class="form-inline">
+            <input type="text" class="form-control " name="firstname" [(ngModel)]="term" placeholder="Search Here">
+        </form>
+      </nav>
+    <div class="table-responsive ">
+        
+        <table class="table ">
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">Image</th>
+            <th scope="col">License</th>
+            <th scope="col">User Type</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Date Created</th>
+            <th scope="col">Last Updated</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+    
+            <tbody>
+                <tr *ngFor="let account of accounts | filter:term | slice: (page-1) * pageSize : page * pageSize; let i = index">
+                    <!-- <td>{{ i + 1 }}</td> -->
+                    <td>
+                        <img src="http://localhost/Clinicord/cs-api/images/{{account.User_image}}" alt="" style="width: 80px;height: 80px;">
+                    </td>
+                    <td>
+                        <a *ngIf="account.Doctor_license != ''">
+                            <img src="http://localhost/Clinicord/cs-api/images/{{account.Doctor_license}}" alt="" style="width: 80px;height: 80px;">
+                        </a>
+                    </td>
+                    <td>
+                        <a *ngIf="account.User_role == '1'">Doctor</a>
+                        <a *ngIf="account.User_role == '0'">Client</a>    
+                    </td>
+                    <td>{{ account.Client_name || account.Doctor_name}}</td>
+                    <td>{{ account.User_email }}</td>
+                    <td>{{ account.CreatedOn | date:'MMM d, y, h:mm a'}}</td>
+                    <td>{{ account.UpdatedOn | date:'MMM d, y, h:mm a'}}</td>
+                    <td><a *ngIf="account.User_Verified == 'T'"  class="mat-raised-button" mat-raised-button color="primary">Verified</a>
+                        <a *ngIf="account.User_Verified == 'F'"  class="mat-raised-button" mat-raised-button color="warn">Unverified</a>
+                    </td>
+
+                    <td>
+                        <a *ngIf="account.User_Verified == 'T'" class="mat-raised-button" mat-raised-button color="warn" (click)="deactivate(account.id)"><span class="material-icons">
+                            remove_circle
+                            </span></a>
+                        <a  *ngIf="account.User_Verified == 'F'" class="mat-raised-button" mat-raised-button color="primary" (click)="activate(account.id)"><span class="material-icons">
+                            verified
+                            </span></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-between p-2">
+            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="accounts.length"></ngb-pagination>
+            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="get_accounts()">
+              <option [ngValue]="2">2 items per page</option>
+              <option [ngValue]="4">4 items per page</option>
+              <option [ngValue]="6">6 items per page</option>
+            </select>
+          </div>
+    </div>
+</div>

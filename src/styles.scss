@@ -1,0 +1,17 @@
+// // @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,100&display=swap');
+html,
+body {
+    width: auto;
+    height: auto;
+    font-family: 'Roboto', sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    // background: linear-gradient(to bottom, #ffffff 20%, #fcdab7 100%);
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+}
+
+// /* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
